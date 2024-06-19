@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css"
+      media="all"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="./style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="./style/tiny-slider.css" rel="stylesheet" />
+    <link href="./style/style.css" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>WoodWorks shop</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      #flashMessageContainer {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%); /* Center horizontally */
+        width: 50%;
+        z-index: 1000;
+        background-color: #076196;
+      }
+
+      .product-item a,
+      .product-item a:hover,
+      .product-title,
+      .actual-price,
+      .offer-price {
+        text-decoration: none !important; /* Remove underline */
+        color: #333; /* Set text color */
+        font-size: 18px; /* Adjust font size */
+      }
+
+      .product-item a:hover {
+        color: #6480ef; /* Change text color on hover */
+      }
+
+      .add-to-cart {
+        background-color: #6480ef; /* Set button background color */
+        border: none; /* Remove button border */
+        color: #fff; /* Set button text color */
+        padding: 16px 16px; /* Adjust button padding */
+        cursor: pointer; /* Change cursor to pointer on hover */
+      }
+
+      .add-to-cart:hover {
+        background-color: #4459c3; /* Change button background color on hover */
+      }
+      .added-to-wishlist .fas.fa-heart {
+        color: rgb(
+          187,
+          10,
+          10
+        ); /* Change color to red when product is added to wishlist */
+      }
+      /* star */
+      div.stars {
+  width: 100%; /* Adjust the width as needed */
+  display: flex;
+  justify-content: center; /* Align items horizontally to the center */
+  pointer-events: none; /* Disable interactions */
+}
+
+input.star {
+  display: none;
+}
+
+label.star {
+  float: right;
+  padding: 10px;
+  font-size: 15px;
+  color: #ccc; /* Default color for empty stars */
+  cursor: default; /* Change cursor to default */
+}
+
+label.star:before {
+  content: "\f005";
+  font-family: FontAwesome;
+}
+
+label.star.checked {
+  color: #186f65; /* Color for checked stars */
+}
+
+      #errorToast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050; /* Adjust the z-index to make sure it appears above other content */
+      }
+
+      #successToast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050; /* Adjust the z-index to make sure it appears above other content */
+      }
+
+      @keyframes add-to-cart-animation {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .add-to-cart.animate {
+        animation: add-to-cart-animation 0.5s ease-in-out;
+      }
+      .next-page-link {
+        background-color: #153448; /* Background color */
+        color: white; /* Text color */
+        border: 1px solid #153448; /* Border color */
+      }
+
+      .next-page-link:hover {
+        background-color: #3c5b6f; /* Darker background color on hover */
+        border-color: #3c5b6f; /* Darker border color on hover */
+        color: white; /* Text color on hover */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="home">Home</a>
+            </li>
+            <li class="active">
+              <a class="nav-link" href="shop">Shop</a>
+            </li>
+            <li><a class="nav-link" href="about">About us</a></li>
+            <li><a class="nav-link" href="services">Services</a></li>
+            <li><a class="nav-link" href="blog">Blog</a></li>
+            <li><a class="nav-link" href="contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="./img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="./img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="./img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="./img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Second Navbar -->
+
+    <nav
+      class="navbar navbar-expand-md navbar-dark fixed-top shadow-sm p-3 mb-5 bg-body rounded bg-transparent"
+      style="margin-top: 90px; background-color: #004085"
+    >
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <form class="d-flex ms-auto" id="navbarSearchForm">
+            <input
+              class="form-control me-2"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              style="height: 30px"
+              id="navbarSearchInput"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              id="navbarSearchButton"
+              style="
+                height: 30px;
+                display: inline-flex;
+                align-items: center;
+                line-height: 1;
+                margin-right: 10px;
+              "
+            >
+              <i class="fas fa-search"></i>
+            </button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasTop"
+              aria-controls="offcanvasTop"
+              style="
+                height: 30px;
+                display: inline-flex;
+                align-items: center;
+                line-height: 1;
+              "
+            >
+              Filters
+            </button>
+          </form>
+        </div>
+      </div>
+      <div
+        id="successToast"
+        class="toast bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-body text-white"></div>
+      </div>
+      <div
+        id="errorToast"
+        class="toast bg-danger"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-body text-white"></div>
+      </div>
+    </nav>
+
+    <!-- End Second Navbar -->
+
+    <!-- End Header/Navigation -->
+
+    <!-- product list start-->
+    <div
+      class="sidebar untree_co-section product-section before-footer-section"
+    >
+      <div class="container">
+        <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="offcanvasTop"
+          aria-labelledby="offcanvasTopLabel"
+        >
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- start -->
+          <div
+            class="card-body text-secondary"
+            style="background-color: #faf8f8"
+          >
+            <h5 class="card-title">Filters</h5>
+            <form id="filterForm">
+              <div class="mb-3">
+                <label for="filterSearch" class="form-label">Search</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="filterSearch"
+                  placeholder="Search products..."
+                />
+              </div>
+              <!-- Additional filters go here -->
+              <div class="mb-3 text-secondary">
+                <label for="sortBy" class="form-label">Sort By</label>
+                <select class="form-select" id="sort-select">
+                  <option value="default">Default</option>
+                  <option value="lowToHigh">Price: Low to High</option>
+                  <option value="highToLow">Price: High to Low</option>
+                </select>
+              </div>
+              <div class="mb-3 mt-4">
+                <div class="form-check">
+                  <label class="form-check-label fs-5" for="newArrivals">
+                    New Arrivals
+                  </label>
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="newArrivals"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="alphabeticalSort" class="form-label"
+                    >Alphabetical Sort</label
+                  >
+                  <select class="form-select" id="alphabetical-sort">
+                    <option value="default">Default</option>
+                    <option value="asc">Aa - Zz</option>
+                    <option value="desc">Zz - Aa</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="categorySort" class="form-label">category</label>
+                  <select class="form-select" id="category-sort">
+                    <option value="">Select the category</option>
+                    <% categories.forEach(category => { %>
+                    <option value="<%= category._id %>">
+                      <%= category.name %>
+                    </option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="color" class="form-label">Select Color</label>
+                  <select class="form-select" id="color-select">
+                    <option value="">Select the color</option>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                    <option value="blue">Blue</option>
+                    <option value="red">Red</option>
+                    <option value="grey">Grey</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <select class="form-select" id="rating">
+                  <option value="">Select the rating</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="applyFiltersBtn"
+              >
+                Apply Filters
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary mt-3"
+                id="clearFiltersBtn"
+              >
+                Clear Filters
+              </button>
+            </form>
+          </div>
+          <!-- end -->
+        </div>
+
+        <div class="row">
+          <!-- product list start-->
+          <div
+            class="sidebar untree_co-section product-section before-footer-section"
+          >
+            <div class="container">
+              <div class="row">
+                <!-- Product Columns -->
+                <% if (noProductsFound) { %>
+                  <div class="col-12">
+                    <div class="alert alert-danger text-center" role="alert">
+                      No products found.
+                    </div>
+                  </div>
+                <% } else { %>
+                  <% products.forEach(product => { %>
+                    <div class="col-12 col-md-4 col-lg-3 mb-5">
+                      <!-- Display product details -->
+                      <div class="product-item border-0">
+                        <!-- Link to product details page -->
+                        <a href="/product/<%= product._id %>">
+                          <!-- Product image -->
+                          <img src="<%= product.images[0] %>" class="img-fluid product-thumbnail" alt="<%= product.name %>" />
+                          <!-- Product name -->
+                          <h3 class="product-title"><%= product.name %></h3>
+                          <!-- Actual price -->
+                          <span class="actual-price text-xs!important">Actual Price: <%= product.actualPrice %></span>
+                          <br />
+                          <span class="offer-price text-xs">Offer Price: <%= product.offerPrice.toFixed() %></span>
+                        </a>
+                        <!-- /star rating start -->
+                        <div class="stars">
+                          <% for (let i = 1; i <= 5; i++) { %>
+                          <label
+                            class="star star-<%= i %> <%= product.averageRating >= i ? 'checked' : '' %>"
+                          ></label>
+                          <% } %>
+                        </div>
+                        <!-- /star rating end -->
+                        <div class="content-wrapper">
+                          <span class="icon-cross add-to-cart" data-product-id="<%= product._id %>">
+                            <img src="./img/cross.svg" class="img-fluid" />
+                          </span>
+                          <a href="#" class="add-to-wishlist" data-product-id="<%= product._id %>">
+                            <i class="fas fa-heart"></i>
+                            <!-- Heart icon -->
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  <% }); %>
+                <% } %>
+              </div>
+                <!-- End Product Columns -->
+              </div>
+              <!-- pagination start -->
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <% if (currentPage > 1) { %>
+                  <li class="page-item" id="page1">
+                    <a
+                      class="page-link"
+                      href="/shop?page=<%= currentPage - 1 %>&sort=<%= sortOption %>"
+                      tabindex="-1"
+                      aria-disabled="true"
+                      >Previous</a
+                    >
+                  </li>
+                  <% } %> <% for (let i = 1; i <= totalPages; i++) { %>
+                  <li
+                    class="page-item <%= currentPage === i ? 'active' : '' %>"
+                  >
+                    <a
+                      class="page-link"
+                      href="/shop?page=<%= i %>&sort=<%= sortOption %>"
+                      ><%= i %></a
+                    >
+                  </li>
+                  <% } %> <% if (currentPage < totalPages) { %>
+                  <li class="page-item">
+                    <a
+                      class="page-link next-page-link"
+                      href="/shop?page=<%= currentPage + 1 %>&sort=<%= sortOption %>"
+                      >Next</a
+                    >
+                  </li>
+                  <% } %>
+                </ul>
+              </nav>
+
+              <!-- pagination end -->
+            </div>
+          </div>
+          <!-- product list end -->
+        </div>
+      </div>
+    </div>
+
+    <!--product_list best_seller end  -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="sofa-img">
+          <img src="./img/sofa.png" alt="Image" class="img-fluid" />
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="./img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">Furni<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a href="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/tiny-slider.js"></script>
+    <script src="./js/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".add-to-cart").forEach((span) => {
+          span.addEventListener("click", function () {
+            const productId = this.getAttribute("data-product-id");
+
+            // Add animation class
+            this.classList.add("animate");
+
+            // Remove animation class after animation ends
+            setTimeout(() => {
+              this.classList.remove("animate");
+            }, 500); // Match the duration of the animation
+
+            // Send AJAX request to add product to cart
+            addToCart(productId);
+          });
+        });
+      });
+
+      function addToCart(productId) {
+        // Send AJAX request to server
+        $.ajax({
+          type: "POST",
+          url: "/addToCart",
+          data: { productId },
+          success: function (response) {
+            if (response.success) {
+              showFlashMessage(response.success, "success");
+            }
+          },
+          error: function (error) {
+            if (error.responseJSON && error.responseJSON.error) {
+              showFlashMessage(error.responseJSON.error, "error");
+            } else {
+              showFlashMessage(
+                "An error occurred while adding the product to the cart",
+                "error"
+              );
+            }
+          },
+        });
+      }
+
+      function showFlashMessage(message, type) {
+        const toast = document.getElementById(
+          type === "success" ? "successToast" : "errorToast"
+        );
+        const toastBody = toast.querySelector(".toast-body");
+        toastBody.textContent = message;
+        const toastInstance = new bootstrap.Toast(toast);
+        toastInstance.show();
+        setTimeout(function () {
+          toastInstance.hide();
+        }, 2000);
+      }
+
+      // Function to handle form submission for applying filters
+      document.addEventListener("DOMContentLoaded", function () {
+
+        function clearFilters() {
+          document.getElementById("filterSearch").value = "";
+          document.getElementById("sort-select").value = "default";
+          document.getElementById("newArrivals").checked = false;
+          document.getElementById("rating").value = "";
+          document.getElementById("category-sort").value = "";
+          document.getElementById("color-select").value = "";
+          document.getElementById("alphabetical-sort").value = "default";
+
+          // Redirect to the shop page with no filters applied
+          window.location.href = "/shop";
+        }
+
+        document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
+
+        function applyFilters() {
+          const searchQuery =
+            document.getElementById("navbarSearchInput").value ||
+            document.getElementById("filterSearch").value;
+          const sortOption = document.getElementById("sort-select").value;
+          const newArrivals = document.getElementById("newArrivals").checked;
+          const rating = document.getElementById("rating").value;
+          const category = document.getElementById("category-sort").value;
+          const color = document.getElementById("color-select").value;
+          const alphabeticalSort =
+            document.getElementById("alphabetical-sort").value;
+          const currentPage = 1;
+
+          let url = `/shop?search=${searchQuery}&page=${currentPage}`;
+
+          if (sortOption !== "default") {
+            url += `&sort=${sortOption}`;
+          }
+
+          if (newArrivals) {
+            url += "&newArrivals=true";
+          }
+
+          if (rating !== "") {
+            url += `&rating=${rating}`;
+          }
+
+          if (category !== "") {
+            url += `&category=${category}`;
+          }
+
+          if (color !== "") {
+            url += `&color=${color}`;
+          }
+
+          if (alphabeticalSort !== "default") {
+            url += `&alphabeticalSort=${alphabeticalSort}`;
+          }
+
+          window.location.href = url;
+        }
+
+        document
+          .getElementById("navbarSearchButton")
+          .addEventListener("click", function () {
+            applyFilters();
+          });
+
+        document
+          .getElementById("applyFiltersBtn")
+          .addEventListener("click", function () {
+            applyFilters();
+          });
+
+        const navbarSearchInput = document.getElementById("navbarSearchInput");
+        const filterSearchInput = document.getElementById("filterSearch");
+
+        navbarSearchInput.addEventListener("input", function () {
+          filterSearchInput.value = this.value;
+        });
+
+        filterSearchInput.addEventListener("input", function () {
+          navbarSearchInput.value = this.value;
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Find the flash message element
+        var flashMessage = document.getElementById("flashMessage");
+        // Check if the flash message element exists
+        if (flashMessage) {
+          // Set a timeout to hide the flash message after 3 seconds
+          setTimeout(function () {
+            flashMessage.style.display = "none"; // Hide the flash message
+          }, 2000);
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const addToWishlistButtons =
+          document.querySelectorAll(".add-to-wishlist");
+
+        addToWishlistButtons.forEach((button) => {
+          button.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default link behavior
+
+            const productId = this.getAttribute("data-product-id");
+
+            // Send AJAX request to add product to wishlist
+            fetch("/addToWishlist", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ productId: productId }),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                alert(data.message);
+                this.classList.add("added-to-wishlist");
+              })
+              .catch((error) => {
+                console.error("Error adding product to wishlist:", error);
+                // Handle error, show error message or log it
+              });
+          });
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const toastElements = document.querySelectorAll(
+          ".toast-container .alert"
+        );
+
+        toastElements.forEach(function (toastElement) {
+          setTimeout(function () {
+            toastElement.remove();
+          }, 3000); // Remove after 3 seconds
+        });
+      });
+    </script>
+  </body>
+</html>

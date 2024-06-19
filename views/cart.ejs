@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link href="../style/tiny-slider.css" rel="stylesheet" />
+    <link href="../style/style.css" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+    <title>WoodWorks cart</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      #errorMessage {
+        position: fixed;
+        top: 20px; /* Adjust as needed */
+        right: 20px; /* Adjust as needed */
+        z-index: 10000;
+        display: none; /* Initially hide the message */
+      }
+
+      .toast {
+        width: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li><a class="nav-link" href="/Home">Home</a></li>
+            <li><a class="nav-link" href="/shop">Shop</a></li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="../img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="../img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="../img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="../img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+          <div class="modal" id="customAlertModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div
+                  class="modal-body alert-danger"
+                  id="customAlertMessage"
+                  style="z-index: 1000; font-size: 20px; padding: 20px"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="flash-container"
+            class="position-fixed top-0 end-0 translate-middle-y mt-5 p-2"
+            style="z-index: 1000; font-size: 18px; padding: 20px"
+          ></div>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <!-- Start Hero Section -->
+    <div class="untree_co-section before-footer-section">
+      <div class="container">
+        <div class="row mb-5">
+          <form class="col-md-12" method="post">
+            <div class="site-blocks-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Image</th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-total">Total</th>
+                    <th class="product-remove">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% cartData.items.reverse().forEach(item => { %>
+                  <tr>
+                    <td class="product-thumbnail">
+                      <img
+                        src="/<%= item.productId.images[0]%>"
+                        alt="Image"
+                        class="img-fluid"
+                      />
+                    </td>
+                    <td class="product-name">
+                      <h2
+                        class="h5 text-black"
+                        style="font-size: 13pt; width: 350px; margin-left: 50px"
+                      >
+                        <%= item.productId.name %>
+                      </h2>
+                    </td>
+                    <td class="product-total">
+                      Rs<span>
+                        <%= item.productId.offerPrice.toFixed() %>
+                      </span>
+                    </td>
+                    <td>
+                      <div
+                        class="input-group mb-3 d-flex align-items-center quantity-container"
+                        style="max-width: 120px"
+                      >
+                        <div class="input-group-prepend">
+                          <button
+                            class="btn btn-outline-black decrease"
+                            type="button"
+                            data-product-id="<%= item.productId._id %>"
+                          >
+                            &minus;
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control text-center quantity-amount"
+                          value="<%= item.quantity %>"
+                          placeholder=""
+                          aria-label="Example text with button addon"
+                          aria-describedby="button-addon1"
+                          id=""
+                          readonly
+                        />
+                        <div class="input-group-append">
+                          <button
+                            class="btn btn-outline-black increase"
+                            type="button"
+                            data-product-id="<%= item.productId._id %>"
+                          >
+                            &plus;
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- <td class="product-total">
+                      Rs<span id="totalPrice_<%= item.productId._id %>">
+                        <%= item.productId.offerPrice %>
+                      </span>
+                    </td> -->
+                    <td class="product-total">
+                      Rs<span id="totalPrice_<%= item.productId._id %>">
+                        <%= item.quantity * item.productId.offerPrice.toFixed()
+                        %>
+                      </span>
+                    </td>
+
+                    <td>
+                      <a
+                        href="#"
+                        class="btn btn-black btn-sm product-remove"
+                        data-product-id="<%= item.productId._id %>"
+                        >X</a
+                      >
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="row">
+                <div class="col-md-12">
+                  <button
+                    id="updateCartBtn"
+                    class="btn btn-black btn-lg py-3 btn-block"
+                  >
+                    Update Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label class="text-black h4" for="coupon">Coupon</label>
+                <p>Enter your coupon code if you have one.</p>
+              </div>
+              <div class="col-md-8 mb-3 mb-md-0">
+                <input
+                  type="text"
+                  class="form-control py-3"
+                  id="coupon"
+                  placeholder="Coupon Code"
+                />
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-black">Apply Coupon</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pl-5">
+            <div class="row justify-content-end">
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-12 text-right border-bottom mb-5">
+                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                  </div>
+                </div>
+                <div class="row mb-3"></div>
+                <div class="row mb-5">
+                  <div class="col-md-6 text-right">
+                    <strong class="text-black">Total:</strong>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <strong class="text-black" id="total">Rs0.00</strong>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <button
+                      id="proceedToCheckoutBtn"
+                      class="btn btn-black btn-lg py-3 btn-block"
+                      onclick="window.location.href='/checkout'"
+                    >
+                      Proceed to Checkout
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="errorMessage"
+                  class="toast bg-danger text-white"
+                  role="alert"
+                  aria-live="assertive"
+                  aria-atomic="true"
+                >
+                  <div class="toast-body">
+                    <% if (messages.error) { %> <%= messages.error %> <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Hero Section -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="sofa-img">
+          <img src="../img/sofa.png" alt="Image" class="img-fluid" />
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="../img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a hreff="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (errorMessage && errorMessage.textContent.trim() !== "") {
+          // Show the toast message if there's content
+          errorMessage.style.display = "block";
+
+          // Hide the message after 5 seconds
+          setTimeout(function () {
+            errorMessage.style.display = "none";
+          }, 5000);
+        }
+
+        const cartItems = document.querySelectorAll("tbody tr");
+
+        // If the cart is empty
+        if (cartItems.length === 0) {
+          // Send an AJAX request to the server to render the empty cart page
+          const xhr = new XMLHttpRequest();
+          xhr.open("GET", "/emptyCartPage", true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                // Update the current page with the response from the server
+                document.body.innerHTML = xhr.responseText;
+              } else {
+                console.error("Error:", xhr.status);
+              }
+            }
+          };
+          xhr.send();
+        }
+      });
+
+      function updateTotalPriceOnLoad() {
+        // Initialize total
+        let total = 0;
+
+        // Select all product rows
+        const productRows = document.querySelectorAll("tbody tr");
+
+        // Loop through each product row
+        productRows.forEach((row) => {
+          // Get quantity and price elements of the current product row
+          const quantityElement = row.querySelector(".quantity-amount");
+          const priceElement = row.querySelector(".product-total span");
+
+          // Parse quantity and price
+          const quantity = parseInt(quantityElement.value);
+          const price = parseFloat(priceElement.textContent);
+
+          // Add the product's total price to the overall total
+          total += quantity * price;
+        });
+
+        // Update total price in the table
+        const totalElement = document.getElementById("total");
+        totalElement.textContent = `Rs${total.toFixed(2)}`;
+      }
+
+      //event listeners to the +/- buttons
+      document.querySelectorAll(".increase, .decrease").forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.stopPropagation(); // Stop event propagation
+
+          const productId = this.getAttribute("data-product-id");
+          const quantityElement =
+            this.closest("tr").querySelector(".quantity-amount");
+          let quantity = parseInt(quantityElement.value); // Get current quantity
+
+          // Determine the operation (increase or decrease)
+          const operation = this.classList.contains("increase")
+            ? "increase"
+            : "decrease";
+
+          // Update the quantity based on the operation
+          if (operation === "decrease") {
+            // Decrease the quantity by 1, but ensure it does not go below 1
+            quantity = Math.max(1, quantity - 0);
+          } else {
+            // Increase the quantity by 1, but ensure it does not exceed 5
+            quantity = Math.min(5, quantity + 0);
+          }
+
+          // Update the quantity in the input field
+          quantityElement.value = quantity;
+
+          // Send AJAX request to update total price
+          updateTotalPrice(productId, quantity);
+        });
+      });
+
+      function customAlert(message) {
+        const customAlertModal = document.getElementById("customAlertModal");
+        const customAlertMessage =
+          document.getElementById("customAlertMessage");
+        customAlertMessage.textContent = message;
+        customAlertModal.classList.add("show");
+        customAlertModal.style.display = "block";
+        setTimeout(() => {
+          customAlertModal.classList.remove("show");
+          customAlertModal.style.display = "none";
+        }, 2000); // Adjust the timeout duration as needed
+      }
+
+      function updateTotalPrice(productId, quantity, operation) {
+        // Send AJAX request to server
+        $.ajax({
+          type: "POST",
+          url: "/update-total-price",
+          data: { productId, quantity },
+          success: function (response) {
+            // Update total price in the table for the individual product
+            const totalPriceElement = document.getElementById(
+              `totalPrice_${productId}`
+            );
+            totalPriceElement.textContent = response.totalPrice;
+
+            // Call the function to update the total price of all products
+            updateTotalPriceOnLoad();
+          },
+          error: function (error) {
+            console.error("Error updating total price:", error);
+          },
+        });
+      }
+
+      // Call the function to update the total price when the page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        updateTotalPriceOnLoad();
+      });
+
+      document.querySelectorAll(".product-remove").forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent the default action of the link
+          const productId = this.getAttribute("data-product-id");
+
+          // Store a reference to the current button element
+          const buttonElement = this;
+
+          // Send AJAX request to remove the product
+          if (
+            confirm(
+              "Are you sure you want to remove this product from the cart?"
+            )
+          ) {
+            $.ajax({
+              type: "POST",
+              url: "/remove-product",
+              data: { productId },
+              success: function (response) {
+                // Remove the corresponding HTML element from the cart display
+                const productRow = buttonElement.closest("tr");
+                if (productRow) {
+                  productRow.remove(); // Remove the entire row containing the product
+                  console.log("Product removed successfully");
+
+                  // Update total price dynamically after product removal
+                  updateTotalPriceOnProductRemoval();
+                }
+                location.reload();
+              },
+              error: function (error) {
+                console.error("Error removing product:", error);
+              },
+            });
+          }
+        });
+      });
+
+      function updateTotalPriceOnProductRemoval() {
+        // Initialize total
+        let total = 0;
+
+        // Select all product rows
+        const productRows = document.querySelectorAll("tbody tr");
+
+        // Loop through each product row
+        productRows.forEach((row) => {
+          // Get quantity and price elements of the current product row
+          const quantityElement = row.querySelector(".quantity-amount");
+          const priceElement = row.querySelector(".product-total span");
+
+          // Parse quantity and price
+          const quantity = parseInt(quantityElement.value);
+          const price = parseFloat(priceElement.textContent);
+
+          // Add the product's total price to the overall total
+          total += quantity * price;
+        });
+
+        // Update total price in the table
+        const totalElement = document.getElementById("total");
+        totalElement.textContent = `Rs${total.toFixed(2)}`;
+      }
+
+      // document
+      //   .getElementById("updateCartBtn")
+      //   .addEventListener("click", function () {
+      //     const updatedQuantities = {};
+
+      //     document.querySelectorAll("tbody tr").forEach((row) => {
+      //       const productId = row
+      //         .querySelector(".product-remove")
+      //         .getAttribute("data-product-id");
+      //       const quantity = parseInt(
+      //         row.querySelector(".quantity-amount").value
+      //       );
+      //       updatedQuantities[productId] = quantity;
+      //     });
+
+      //     $.ajax({
+      //       type: "POST",
+      //       url: "/update-cartQty",
+      //       data: { quantities: updatedQuantities },
+      //       success: function (response) {
+      //         if (response.success) {
+      //           showFlashMessage("Cart updated successfully", "success");
+      //         } else {
+      //           showFlashMessage(
+      //             response.message || "Failed to update cart",
+      //             "danger"
+      //           );
+      //         }
+      //       },
+      //       error: function (error) {
+      //         console.error("Error updating cart:", error);
+      //         showFlashMessage(
+      //           "An error occurred while updating cart",
+      //           "danger"
+      //         );
+      //       },
+      //     });
+      //   });
+      function updateCartAndProceedToCheckout() {
+        const updatedQuantities = {};
+
+        document.querySelectorAll("tbody tr").forEach((row) => {
+          const productId = row
+            .querySelector(".product-remove")
+            .getAttribute("data-product-id");
+          const quantity = parseInt(
+            row.querySelector(".quantity-amount").value
+          );
+          updatedQuantities[productId] = quantity;
+        });
+
+        $.ajax({
+          type: "POST",
+          url: "/update-cartQty",
+          data: { quantities: updatedQuantities },
+          success: function (response) {
+            if (response.success) {
+              showFlashMessage("Cart updated successfully", "success");
+              window.location.href = "/checkout";
+            } else {
+              showFlashMessage(
+                response.message || "Failed to update cart",
+                "danger"
+              );
+            }
+          },
+          error: function (error) {
+            console.error("Error updating cart:", error);
+            showFlashMessage("An error occurred while updating cart", "danger");
+          },
+        });
+      }
+
+      document
+        .getElementById("updateCartBtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          updateCartAndProceedToCheckout();
+        });
+
+      document
+        .getElementById("proceedToCheckoutBtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          updateCartAndProceedToCheckout();
+        });
+
+      function showFlashMessage(message, type) {
+        const alertElement = document.createElement("div");
+        alertElement.className = `alert alert-${type} alert-dismissible fade show`;
+        alertElement.setAttribute("role", "alert");
+        alertElement.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+        const container = document.getElementById("flash-container");
+        container.appendChild(alertElement);
+
+        setTimeout(function () {
+          alertElement.remove();
+        }, 5000); // Adjusted time to 5 seconds
+      }
+    </script>
+  </body>
+</html>

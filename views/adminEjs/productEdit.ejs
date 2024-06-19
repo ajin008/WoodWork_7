@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+    <!-- loader-->
+    <link href="/assets/css/pace.min.css" rel="stylesheet" />
+    <script src="/assets/js/pace.min.js"></script>
+    <!--favicon-->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
+    <!-- Vector CSS -->
+    <link
+      href="/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css"
+      rel="stylesheet"
+    />
+    <!-- simplebar CSS-->
+    <link href="/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS-->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- animate CSS-->
+    <link href="/assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Icons CSS-->
+    <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <!-- Sidebar CSS-->
+    <link href="/assets/css/sidebar-menu.css" rel="stylesheet" />
+    <!-- Custom Style-->
+    <link href="/assets/css/app-style.css" rel="stylesheet" />
+    <!-- img crop -->
+    <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css" />
+    <style>
+      .hidden {
+        display: none;
+      }
+      .image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Style for the image previews */
+.image-preview {
+  max-width: 100px; /* Adjust this value as needed */
+  max-height: 100px; /* Adjust this value as needed */
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.currentImage{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            outline: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-dialog {
+            position: relative;
+            margin: 10px;
+            pointer-events: none;
+            max-width: 500px;
+        }
+
+        .modal-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 0.3rem;
+            outline: 0;
+        }
+
+        .img-container {
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+    </style>
+  </head>
+  <body class="bg-theme bg-theme1">
+    <!-- Start wrapper-->
+    <div id="wrapper">
+      <!--Start sidebar-wrapper-->
+      <div
+        id="sidebar-wrapper"
+        data-simplebar=""
+        data-simplebar-auto-hide="true"
+      >
+        <div class="brand-logo">
+          <a href="/adminDash">
+            <img
+              src="/assets/images/logo-icon.png"
+              class="logo-icon"
+              alt="logo icon"
+            />
+            <h5 class="logo-text">WoodWorks Admin</h5>
+          </a>
+        </div>
+        <ul class="sidebar-menu do-nicescrol">
+          <li class="sidebar-header">MAIN NAVIGATION</li>
+
+          <li>
+            <a href="/adminDash">
+              <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/userManagement">
+              <i class="zmdi zmdi-invert-colors"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+
+          <li class="active">
+            <a href="/productManagement">
+              <i class="zmdi zmdi-format-list-bulleted"></i>
+              <span>Product Management</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/categoryManagement">
+              <i class="zmdi zmdi-grid"></i> <span>Category Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="/OderManagement">
+              <i class="zmdi zmdi-grid"></i> <span>Oder Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="/inventory">
+              <i class="zmdi zmdi-grid"></i> <span>Inventory</span>
+            </a>
+          </li>
+          <li>
+            <a href="/ReturnedOrder">
+              <i class="zmdi zmdi-grid"></i> <span>Returned Order</span>
+            </a>
+          </li>
+          <li>
+            <a href="/couponManagement">
+              <i class="zmdi zmdi-grid"></i> <span>Coupon Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="/salesReport">
+              <i class="zmdi zmdi-grid"></i> <span>SalesReport</span>
+            </a>
+          </li>
+          <li>
+            <a href="/offerManagement">
+              <i class="zmdi zmdi-grid"></i> <span>OfferManagement</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!--End sidebar-wrapper-->
+
+      <!--Start topbar header-->
+      <header class="topbar-nav">
+        <nav class="navbar navbar-expand fixed-top">
+          <ul class="navbar-nav mr-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link toggle-menu" href="javascript:void();">
+                <i class="icon-menu menu-icon"></i>
+              </a>
+            </li>
+            
+          </ul>
+          <form id="logoutForm" action="/adminLogout" method="POST">
+            <button
+              type="submit"
+              class="nav-link btn btn-warning"
+              id="logoutBtn"
+            >
+              <i class="fa fa-sign-out"></i> Logout
+            </button>
+          </form>
+        </nav>
+      </header>
+      <!--End topbar header-->
+
+      <!--Start Back To Top Button-->
+      <a href="javaScript:void();" class="back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+      </a>
+      <!--End Back To Top Button-->
+
+      
+
+      <div class="content-wrapper">
+        <div class="container-fluid">
+          <div class="container mt-5">
+            <h1>Edit Product</h1>
+            <form action="/admin/updateProductDetails/<%= product._id %>" method="POST" >
+              <div class="form-group row">
+                <label for="productId" class="col-sm-2 col-form-label hidden">Product ID:</label>
+                <div class="col-sm-10 hidden">
+                  <input type="text" id="productId" name="productId" value="<%= product._id %>" class="form-control " disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" id="name" name="name" value="<%= product.name %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">brand Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" id="brandName" name="brandName" value="<%= product.brandName %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">Description:</label>
+                <div class="col-sm-10">
+                  <textarea id="description" name="description" class="form-control"><%= product.description %></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="detailedInformation" class="col-sm-2 col-form-label">Detailed Information:</label>
+                <div class="col-sm-10">
+                  <textarea id="detailedInformation" name="detailedInformation" class="form-control"><%= product.detailedInformation %></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="category" class="col-sm-2 col-form-label">Category:</label>
+                <div class="col-sm-10">
+                  <select id="category" name="category" class="form-control">
+                    <% categories.forEach(category => { %>
+                      <option value="<%= category._id %>" <%= (product.category.toString() === category._id.toString()) ? 'selected' : '' %>><%= category.name %></option>
+                    <% }); %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="qty" class="col-sm-2 col-form-label">Quantity:</label>
+                <div class="col-sm-10">
+                  <input type="number" id="qty" name="qty" value="<%= product.qty %>" min="0" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="color" class="col-sm-2 col-form-label">Color:</label>
+                <div class="col-sm-10">
+                  <input type="text" id="color" name="color" value="<%= product.color %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="actualPrice" class="col-sm-2 col-form-label">Actual Price:</label>
+                <div class="col-sm-10">
+                  <input type="number" id="actualPrice" name="actualPrice" value="<%= product.actualPrice %>" class="form-control" min="0" max="100000">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="offerPrice" class="col-sm-2 col-form-label">Offer Price:</label>
+                <div class="col-sm-10">
+                  <input type="number" id="offerPrice" name="offerPrice" value="<%= product.offerPrice %>" class="form-control" min="0" max="100000">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="offerPrice" class="col-sm-2 col-form-label">serialNumber:</label>
+                <div class="col-sm-10">
+                  <input type="text" id="serialNumber" name="serialNumber" value="<%= product.serialNumber %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="isListed" class="col-sm-2 col-form-label">Is Listed:</label>
+                <div class="col-sm-10">
+                  <select id="isListed" name="isListed" class="form-control">
+                    <option value="true" <%= (product.isListed) ? 'selected' : '' %>>Yes</option>
+                    <option value="false" <%= (!product.isListed) ? 'selected' : '' %>>No</option>
+                  </select>
+                </div>
+              </div>            
+              <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                  <button type="submit" class="btn btn-primary">Update Product</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="container mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <div id="existing-images" class="mb-3">
+                        <h6>Current Images</h6>
+                        <% existingImages.forEach((image, index) => { %>
+                            <div class="mb-2 image-container">
+                                <img src="/<%= image %>" class="image-preview mr-2" alt="Existing Image" data-image="<%= image %>">
+                                <button type="button" class="btn btn-sm btn-danger remove-existing-image"><i class="fas fa-trash"></i> Remove</button>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <form id="product-update-form" action="/admin/updateProductImages/<%= product._id %>" method="POST" enctype="multipart/form-data">
+                        <!-- New image upload -->
+                        <h6>Add New Image</h6>
+                        <div class="mb-3">
+                            <input type="file" id="new-images" accept="image/*" multiple>
+                            <div id="new-images-preview" class="image-preview-container"></div>
+                        </div>
+                        <!-- Button to submit the form -->
+                        <button id="submit-changes" class="btn btn-success">Update Image</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      
+      
+  
+      <!--Start footer-->
+      <footer class="footer">
+        <div class="container">
+          <div class="text-center">Copyright © 2024 WoodWorks Admin</div>
+        </div>
+      </footer>
+      <!--End footer-->
+
+      <!--start color switcher-->
+      <div class="right-sidebar">
+        <div class="switcher-icon">
+          <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+        </div>
+        <div class="right-sidebar-content">
+          <p class="mb-0">Gaussion Texture</p>
+          <hr />
+          <ul class="switcher">
+            <li id="theme1"></li>
+            <li id="theme2"></li>
+            <li id="theme3"></li>
+            <li id="theme4"></li>
+            <li id="theme5"></li>
+            <li id="theme6"></li>
+          </ul>
+          <p class="mb-0">Gradient Background</p>
+          <hr />
+          <ul class="switcher">
+            <li id="theme7"></li>
+            <li id="theme8"></li>
+            <li id="theme9"></li>
+            <li id="theme10"></li>
+            <li id="theme11"></li>
+            <li id="theme12"></li>
+            <li id="theme13"></li>
+            <li id="theme14"></li>
+            <li id="theme15"></li>
+          </ul>
+        </div>
+      </div>
+      <!--end color switcher-->
+    </div>
+    <!--End wrapper-->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <!-- simplebar js -->
+    <script src="/assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="/assets/js/sidebar-menu.js"></script>
+    <!-- loader scripts -->
+    <script src="/assets/js/jquery.loading-indicator.js"></script>
+    <!-- Custom scripts -->
+    <script src="/assets/js/app-script.js"></script>
+    <!-- Chart js -->
+    <script src="/assets/plugins/Chart.js/Chart.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Index js -->
+    <!-- <script src="/assets/js/index.js"></script> -->
+    <!-- img crop -->
+    <script src="https://unpkg.com/cropperjs"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('new-images');
+        const form = document.getElementById('product-update-form');
+        const previewContainer = document.getElementById('new-images-preview');
+        const existingImagesContainer = document.getElementById('existing-images');
+        const submitButton = document.getElementById('submit-changes');
+
+        function updateImageCount() {
+            const totalImages = existingImagesContainer.querySelectorAll('.image-container').length + previewContainer.querySelectorAll('.image-preview').length;
+            fileInput.disabled = totalImages >= 5;
+            submitButton.disabled = totalImages < 3 || totalImages > 5;
+        }
+
+        fileInput.addEventListener('change', function(event) {
+            const files = event.target.files;
+            Array.from(files).forEach(function(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('image-preview', 'mr-2');
+                    const container = document.createElement('div');
+                    container.classList.add('mb-2', 'image-container');
+
+                    const removeButton = document.createElement('button');
+                    removeButton.type = 'button';
+                    removeButton.classList.add('btn', 'btn-sm', 'btn-danger', 'remove-preview-image');
+                    removeButton.innerHTML = '<i class="fas fa-trash"></i> Remove';
+                    removeButton.addEventListener('click', function() {
+                        container.remove();
+                        updateImageCount();
+                    });
+
+                    container.appendChild(img);
+                    container.appendChild(removeButton);
+                    previewContainer.appendChild(container);
+                    updateImageCount();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        existingImagesContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-existing-image')) {
+                const container = event.target.closest('.image-container');
+                container.remove();
+                updateImageCount();
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(form);
+            const files = fileInput.files;
+            Array.from(files).forEach(function(file) {
+                formData.append('images', file);
+            });
+
+            const existingImages = [];
+            existingImagesContainer.querySelectorAll('.image-preview').forEach(function(img) {
+                existingImages.push(img.getAttribute('data-image'));
+            });
+            formData.append('existingImages', JSON.stringify(existingImages));
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    window.location.href = "/productManagement";
+                } else {
+                    throw new Error('Failed to update images');
+                }
+            })
+            .catch(function(error) {
+                console.error('Error updating product images:', error);
+                alert('Failed to update images. Please try again later.');
+            });
+        });
+
+        updateImageCount(); // Initial check
+    });
+  </script>
+    
+  </body>
+</html>

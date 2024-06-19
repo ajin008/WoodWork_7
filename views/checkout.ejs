@@ -1,0 +1,977 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="./style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="./style/tiny-slider.css" rel="stylesheet" />
+    <link href="./style/style.css" rel="stylesheet" />
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+    rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .form-check {
+          font-size: 17px; /* Adjust the font size as needed */
+        }
+      .mainContainer {
+        width: 400px;
+        height: 590px;
+        margin: auto; /* Center horizontally */
+        position: fixed; /* Fix the position */
+        top: 50%; /* Place it 50% from the top */
+        left: 50%; /* Place it 50% from the left */
+        transform: translate(-50%, -50%); /* Adjust for centering */
+        box-shadow: 0 0 10px #2323;
+        background: white;
+      }
+      .cardHolder {
+        height: 300px;
+        background: linear-gradient(to right, #6480ef, #7775e8, #806ce8);
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .heading {
+        height: 40px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .stepHeading {
+        height: 20px;
+        font-size: 16px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .card {
+        height: 180px;
+        width: 280px;
+        background: white;
+        margin: 0 auto;
+        border-radius: 1.2em;
+        margin-top: 25px;
+        padding: 12px 20px;
+        position: relative;
+      }
+      .infoheader {
+        height: 20px;
+        font-size: 24px; /* Increased font size */
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #95a5a6;
+        text-align: center; /* Centered text */
+        margin-top: 20px; /* Adjusted margin top */
+      }
+      .payment {
+        height: 80px;
+        position: relative;
+        top: 24px;
+        box-shadow: 0 -5px 5px -5px #2323;
+        justify-content: space-around;
+      }
+      .val {
+        height: 40px;
+        font-size: 24px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        color: #6480ef;
+      }
+    </style>
+
+
+    <title>WoodWorks cart</title>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li><a class="nav-link" href="/Home">home</a></li>
+            <li><a class="nav-link" href="/shop">Shop</a></li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="./img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="./img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="./img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="./img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+          <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3">
+            <div id="toast" class="toast bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body text-white"></div>
+            </div>
+          </div>        
+        </div>
+      </div> 
+          
+    </nav>
+    
+    <!-- End Header/Navigation -->
+
+    <!-- Start Hero Section -->
+
+    <!-- End Hero Section -->
+
+    <!-- main section start -->
+    <div class="untree_co-section">
+      <div class="container">
+        <div class="row mb-5"></div>
+        <form id="orderForm" action="/placeOrder" method="POST">
+          <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+              <h2 class="h3 mb-3 text-black">Billing Details</h2>
+              <div class="p-3 p-lg-5 border bg-white">
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="FirstName" class="text-black"
+                      >First Name <span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="FirstName"
+                      name="FirstName"
+                      value="<%= user.FirstName %>"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="LastName" class="text-black"
+                      >Last Name <span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="LastName"
+                      name="LastName"
+                      value="<%= user.LastName %>"
+                    />
+                  </div>
+                  <div class="mt-4">
+                    <% addresses.forEach((address, index) => { %>
+                      <div class="border p-3 mb-3">
+                        <h3 class="h6 mb-0">
+                          <div class="form-check">
+                            <input 
+                              class="form-check-input" 
+                              type="radio" 
+                              name="selectedAddress" 
+                              id="address<%= index %>" 
+                              value="<%= index %>" 
+                              <% if (index === 0) { %>checked<% } %> 
+                              onclick="updateSelectedAddressIndex(<%= index %>)"
+                            >
+                            <label class="form-check-label" for="address<%= index %>">
+                              Address <span class="text-danger">*</span><br>
+                              <%= address.address %>, <%= address.street %>, <%= address.landmark %>, <%= address.state %>, <%= address.postalCode %>
+                            </label>
+                          </div>
+                        </h3>
+                      </div>
+                    <% }); %>
+                    <input type="hidden" name="selectedAddressIndex" id="selectedAddressIndex" value="0">
+                  </div>                  
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="email" class="text-black">Email <span class="text-danger">*</span></label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value="<%= user.email%>"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="phone"
+                        name="phone"
+                        value="<%= user.phone %>"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-4">
+                    <a href="/addAddress/<%= user._id %>?sourcePage=checkoutPage_org %>" class="btn btn-outline-primary">Add new address</a>
+                  </div> 
+                </div>
+              </div>
+            </div>
+            
+            
+
+            <div class="col-md-6">
+              <div class="row mb-5">
+                <div class="col-md-12">
+                    <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                    <div class="p-3 p-lg-5 border bg-white">
+                        <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                        <div class="input-group w-75 couponcode-wrap">
+                            <input type="text" class="form-control me-2" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2" name="couponCode"/>
+                            <div class="input-group-append">
+                                <button class="btn btn-black btn-sm" type="button" id="applyCouponBtn">Apply</button>
+                                <button
+                                    class="btn btn-black btn-sm"
+                                    type="button"
+                                    id="removeCouponBtn"
+                                >
+                                    remove 
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row mb-5">
+                <div class="col-md-12">
+                  <h2 class="h3 mb-3 text-black">Your Order</h2>
+                  <div class="p-3 p-lg-5 border bg-white">
+                    <table class="table site-block-order-table mb-5">
+                      <thead>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                      </thead>
+                      <tbody>
+                        <% cartItems.forEach(item => { %>
+                        <tr>
+                          <td><%= item.productId.name %></td>
+                          <td><%= item.quantity %></td>
+                          <td>
+                            Rs<span
+                              ><%= item.productId.offerPrice * item.quantity
+                              %></span
+                            >
+                          </td>
+                        </tr>
+                        <% }); %>
+                        
+                        <tr id="discountRow" style="display: none;">
+                          <td colspan="2" class="text-black font-weight-bold">
+                            <strong>Discount Amount</strong>
+                          </td>
+                          <td class="text-black font-weight-bold">
+                            <strong>Rs<span id="discountValue"></span></strong>
+                          </td>
+                        </tr>
+                        
+
+                        <tr>
+                          <td colspan="2" >
+                            <strong>Delivery Charge</strong>
+                          </td>
+                          <td >
+                            <strong>Rs<span id="deliveryCharge"><%= deliveryCharge %></span></strong>
+                          </td>
+                        </tr>
+                        <input type="hidden" name="deliveryCharge" id="deliveryChargeInput" value="<%= deliveryCharge %>">
+                        <input type="hidden" id="orderTotalFromClient" name="orderTotalFromClient" value="<%= orderTotal %>">
+                        
+
+                        <tr>
+                          <td colspan="2" class="text-black font-weight-bold">
+                            <strong>Order Total</strong>
+                          </td>
+                          <td class="text-black font-weight-bold">
+                            <strong>Rs<span id="orderTotalValue"><%= orderTotal %></span></strong>
+                          </td>
+                        </tr>
+                        <% cartItems.forEach((item, index) => { %>
+                        <input
+                          type="hidden"
+                          name="cartItems[<%= index %>][productId]"
+                          value="<%= item.productId._id %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="cartItems[<%= index %>][quantity]"
+                          value="<%= item.quantity %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="cartItems[<%= index %>][productName]"
+                          value="<%= item.productId.name %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="cartItems[<%= index %>][total]"
+                          value="<%= item.productId.offerPrice * item.quantity %>"
+                        />
+                        <% }); %>
+                        
+                        <input type="hidden" name="orderTotal" id="orderTotalInput" value="<%= orderTotal %>">
+                        <input type="hidden" name="discountValueInput" id="discountValueInput" value="">
+                        <input type="hidden" name="discountType" id="discountType" value="">
+                        <input type="hidden" name="couponId" id="couponId" value="">
+                        <input type="hidden" name="userId" id="userId" value="<%= userId %>">
+
+                        
+                      </tbody>
+                    </table>
+
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="oderType"
+                            id="cashOnDelivery"
+                            value="cashOnDelivery"
+                            
+                          />
+                          <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
+                        </div>
+                      </h3>
+                    </div>
+
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="oderType"
+                            id="wallet" 
+                            value="wallet"
+                           
+                          />
+                          <label class="form-check-label" for="wallet">Wallet</label>
+                        </div>
+                      </h3>
+                    </div>
+                    
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="oderType"
+                            id="Online Payment"
+                            value="Online Payment"
+                            
+                          />
+                          <label class="form-check-label" for="Online Payment">Online Payment</label>
+                      </h3>
+                    </div>
+
+                    <% if (messages.error) { %>
+                      <div
+                        class="alert alert-danger text-center"
+                        role="alert"
+                        style="background-color: #dc3545; color: #ffffff"
+                      >
+                        <%= messages.error %>
+                      </div>
+                      <% } %>
+              
+                    <div class="form-group">
+                      <button
+                        type="submit"
+                        id="placeOrderBtn"
+                        class="btn btn-black btn-lg py-3 btn-block"
+                      >
+                        Place Order
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- </form> -->
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Offcanvas Structure for Wallet Payment -->
+<div class="offcanvas" tabindex="-1" id="walletOffcanvas">
+  <div class="mainContainer ">
+    <div class="cardHolder">
+      <div class="header">
+        <div class="heading center">Wallet</div>
+        <div class="stepHeading center">currentBalance</div>
+        <div class="card">
+          <div class="middle part"></div>
+          <div class="bottom part">
+            <div class="expDate vcente text-center">
+              <div class="infoheader fs-1 " id="walletBalance"><%=walletBalance.toFixed()%></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="options vcenter"></div>
+    <div class="payment vcenter">
+      <div class="amount">
+        <div class="infoheader vcenter">Total Amount</div>
+        <div class="infocontent val vcenter center" id="offcanvasOrderTotal"><%=orderTotal%></div>
+      </div>
+      <div
+        id="payNowBtn"
+        class="btn center btn-sm"
+        style="
+          background-color: #6480ef;
+          border: 2px solid #6480ef;
+          color: white;
+          width: 140px;
+          position: relative;
+          left: 130px;
+        "
+        onclick="placeOrder()"
+      >
+        Pay Now
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+    
+    <!-- main section end -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="sofa-img">
+          <img src="./img/sofa.png" alt="Image" class="img-fluid" />
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="./img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a hreff="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/tiny-slider.js"></script>
+    <script src="./js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+
+
+
+
+        function updateSelectedAddressIndex(index) {
+          document.getElementById('selectedAddressIndex').value = index;
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+          originalOrderTotal = parseFloat(document.getElementById('orderTotalValue').textContent);
+
+          const applyCouponBtn = document.getElementById('applyCouponBtn');
+          applyCouponBtn.addEventListener('click', applyCoupon);
+
+          const removeCouponBtn = document.getElementById('removeCouponBtn'); 
+          removeCouponBtn.addEventListener('click', removeCoupon);
+        });
+
+        
+
+        function applyCoupon() {
+  const couponCodeInput = document.getElementById('c_code');
+  const couponCode = couponCodeInput.value.trim();
+  const orderTotalFromClient = parseFloat(document.getElementById('orderTotalFromClient').value);
+
+  // Make sure couponCode is not empty
+  if (!couponCode) {
+    alert('Please enter a coupon code.');
+    return;
+  }
+
+  // Prepare the data to send to the server
+  const data = {
+    couponCode: couponCode,
+    orderTotal: orderTotalFromClient
+  };
+
+  // Fetch API request
+  fetch('/applyCoupon', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.valid) {
+      alert(`Coupon applied successfully! New total price: Rs${data.totalPrice}`);
+      
+      // Round the total price and discount amount to two decimal places
+      const roundedTotalPrice = parseFloat(data.totalPrice).toFixed(2);
+      const roundedDiscountAmount = parseFloat(data.discountAmount || 0).toFixed(2);
+      
+      document.getElementById('orderTotalValue').textContent = roundedTotalPrice;
+      document.getElementById('orderTotalInput').value = roundedTotalPrice;
+      document.getElementById('discountValueInput').value = roundedDiscountAmount; 
+      document.getElementById('discountType').value = data.discountType || '';
+      document.getElementById('couponId').value = data.couponId || '';
+      document.getElementById('offcanvasOrderTotal').textContent = roundedTotalPrice;
+      
+      if (roundedDiscountAmount > 0) {
+        document.getElementById('discountValue').textContent = roundedDiscountAmount;
+        document.getElementById('discountRow').style.display = 'table-row';
+      }
+    } else {
+      // Handle error response
+      if (data.error === "Invalid coupon code") {
+        alert('Invalid coupon code. Please try again.');
+      } else if (data.error === "Coupon not found") {
+        alert('Coupon not found.');
+      } else if (data.error === "Coupon has already been redeemed by this user") {
+        alert('Coupon has already been redeemed by this user.');
+      } else {
+        alert('An error occurred. Please try again later.');
+      }
+    }
+  })
+  .catch(error => {
+    console.error('There was a problem with your fetch operation:', error);
+    alert('Coupon has already been redeemed by this user OR Coupon not found');
+  });
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const orderType = document.querySelector('input[name="oderType"]:checked').value;
+    const orderForm = document.getElementById('orderForm');
+    const userId = document.getElementById('userId').value;
+
+    if (orderType === 'cashOnDelivery') {
+      const orderTotal = parseFloat(document.getElementById('orderTotalInput').value);
+      if (orderTotal > 1000) {
+        showToast('Cash on Delivery is not available for orders above Rs 1000. Please select another payment method.');
+        return;
+      } else {
+        orderForm.action = '/placeOrder';
+        orderForm.submit();
+      }
+    } else if (orderType === 'wallet') {
+      const walletOffcanvas = new bootstrap.Offcanvas(document.getElementById('walletOffcanvas'));
+      walletOffcanvas.show();
+      return;
+    } else if (orderType === 'Online Payment') {
+      const orderTotal = parseFloat(document.getElementById('orderTotalInput').value) * 100;
+      fetch('/createRazorpayOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: orderTotal }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        const orderId = data.orderId;
+        const options = {
+          key: 'rzp_test_PFqhrThyTWqHJx',
+          amount: orderTotal,
+          currency: 'INR',
+          name: 'woodworks',
+          description: 'Payment for your order',
+          order_id: orderId,
+          handler: function(response) {
+            console.log('Razorpay payment successful:', response);
+
+            // Send payment response to the server for verification
+            fetch('/verifyRazorpayPayment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                orderId: orderId,
+                paymentResponse: response
+              })
+            })
+            .then(verifyResponse => verifyResponse.json())
+            .then(verifyData => {
+              if (verifyData.status === 'success') {
+                showToast('Payment was successful!', 'success');
+                orderForm.submit();
+              } else {
+                showToast('Payment verification failed. Please try again.');
+                setTimeout(function() {
+                  window.location.href = `/user-cart/${userId}`;
+                }, 1000);
+              }
+            })
+            .catch(error => {
+              console.error('Error verifying payment:', error);
+              showToast('Payment verification failed. Please try again.');
+              setTimeout(function() {
+                window.location.href = `/user-cart/${userId}`;
+              }, 1000);
+            });
+          },
+          prefill: {
+            name: 'Customer Name',
+            email: 'customer@example.com',
+            contact: '9876543210',
+          },
+          theme: {
+            color: '#3399cc',
+          },
+          modal: {
+            ondismiss: function() {
+              console.log('Payment popup closed');
+              showToast('Payment was not completed. Please try again.');
+              setTimeout(function() {
+                window.location.href = '/checkout';
+              }, 1000);
+            }
+          },
+          notes: {
+            order_id: orderId,
+          }
+        };
+        const rzp = new Razorpay(options);
+        rzp.open();
+      })
+      .catch(error => {
+        console.error('Error creating Razorpay order:', error);
+        showToast('Payment failed. Please try again later.');
+        setTimeout(function() {
+          window.location.href = '/checkout';
+        }, 1000);
+      });
+    }
+  }
+
+  document.getElementById('orderForm').addEventListener('submit', handleSubmit);
+
+  document.getElementById('payNowBtn').addEventListener('click', function(event) {
+    const orderForm = document.getElementById('orderForm');
+    const offcanvasOrderTotal = parseFloat(document.getElementById('offcanvasOrderTotal').textContent);
+    const walletBalance = parseFloat(document.getElementById('walletBalance').textContent);
+
+    const difference = offcanvasOrderTotal - walletBalance;
+    if (walletBalance >= offcanvasOrderTotal) {
+      orderForm.action = '/placeOrder';
+      orderForm.submit();
+    } else {
+      event.preventDefault();
+      alert(`Insufficient balance in your wallet. Please add ${difference} to your wallet.`);
+    }
+  });
+});
+
+
+
+function showToast(message, type = 'error') {
+  const toastEl = document.getElementById('toast');
+  const toastBody = toastEl.querySelector('.toast-body');
+
+  // Clear any existing classes on the toast element
+  toastEl.className = 'toast';
+  toastBody.className = 'toast-body';
+
+  // Add appropriate classes based on the type of message
+  if (type === 'success') {
+    toastEl.classList.add('bg-success');
+    toastBody.classList.add('text-white');
+  } else {
+    toastEl.classList.add('bg-danger');
+    toastBody.classList.add('text-white');
+  }
+
+  // Update the toast message
+  toastBody.textContent = message;
+
+  // Initialize and show the toast
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+}
+
+function allowOnlyNumbers(event) {
+  const charCode = event.which ? event.which : event.keyCode;
+
+  if (
+    charCode === 8 ||
+    charCode === 46 ||
+    charCode === 37 ||
+    charCode === 39 ||
+    charCode === 9 ||
+    charCode === 13
+  ) {
+    return;
+  }
+
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+  }
+}
+
+document.getElementById('phone').addEventListener('keydown', allowOnlyNumbers);
+
+
+// function showToast(message) {
+//     // Find the toast element
+//     const toastElement = document.getElementById('toast');
+
+//     // Update the toast message
+//     const toastBody = toastElement.querySelector('.toast-body');
+//     toastBody.textContent = message;
+
+//     // Initialize and show the toast
+//     const toast = new bootstrap.Toast(toastElement);
+//     toast.show();
+// }
+
+
+function removeCoupon() {
+  const couponCodeInput = document.getElementById('c_code');
+  couponCodeInput.value = ''; 
+  
+  // Restore the original order total
+  const roundedOriginalOrderTotal = originalOrderTotal.toFixed(2);
+  
+  document.getElementById('orderTotalValue').textContent = roundedOriginalOrderTotal;
+  document.getElementById('orderTotalInput').value = roundedOriginalOrderTotal;
+  document.getElementById('discountValueInput').value = ''; 
+  document.getElementById('discountType').value = '';
+  document.getElementById('couponId').value = '';
+  document.getElementById('offcanvasOrderTotal').textContent = roundedOriginalOrderTotal;
+  
+  document.getElementById('discountValue').textContent = '';
+  document.getElementById('discountRow').style.display = 'none';
+  
+  // Refresh the page
+  location.reload();
+}
+
+      
+    
+
+      
+    </script>
+    
+  </body>
+</html>

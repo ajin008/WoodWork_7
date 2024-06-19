@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+    <!-- loader-->
+    <link href="../assets/css/pace.min.css" rel="stylesheet" />
+    <script src="../assets/js/pace.min.js"></script>
+    <!--favicon-->
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+    <!-- Vector CSS -->
+
+    <!-- simplebar CSS-->
+    <link
+      href="../assets/plugins/simplebar/css/simplebar.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap core CSS-->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- animate CSS-->
+    <link href="../assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Icons CSS-->
+    <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <!-- Sidebar CSS-->
+    <link href="../assets/css/sidebar-menu.css" rel="stylesheet" />
+    <!-- Custom Style-->
+    <link href="../assets/css/app-style.css" rel="stylesheet" />
+
+    <!-- chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px; /* Adjust as necessary */
+        display: inline-block;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+
+  <body class="bg-theme bg-theme1">
+    <!-- Start wrapper-->
+    <div id="wrapper">
+      <!--Start sidebar-wrapper-->
+      <div
+        id="sidebar-wrapper"
+        data-simplebar=""
+        data-simplebar-auto-hide="true"
+      >
+        <div class="brand-logo">
+          <a href="/adminDash">
+            <img
+              src="../assets/images/logo-icon.png"
+              class="logo-icon"
+              alt="logo icon"
+            />
+            <h5 class="logo-text">WoodWorks Admin</h5>
+          </a>
+        </div>
+        <ul class="sidebar-menu do-nicescrol">
+          <li class="sidebar-header">MAIN NAVIGATION</li>
+          <li class="active">
+            <a href="/adminDash">
+              <i class="zmdi zmdi-view-dashboard"></i> <span>DashBoard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="userManagement">
+              <i class="zmdi zmdi-invert-colors"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/productManagement">
+              <i class="zmdi zmdi-format-list-bulleted"></i>
+              <span>Product Management</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/categoryManagement">
+              <i class="zmdi zmdi-grid"></i> <span>Category Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="/OderManagement">
+              <i class="zmdi zmdi-grid"></i> <span>Oder Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="/inventory">
+              <i class="zmdi zmdi-grid"></i> <span>Inventory</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/ReturnedOrder">
+              <i class="zmdi zmdi-grid"></i> <span>Returned Order</span>
+            </a>
+          </li>
+          <li>
+            <a href="/couponManagement">
+              <i class="zmdi zmdi-grid"></i> <span>Coupon Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="/salesReport">
+              <i class="zmdi zmdi-grid"></i> <span>SalesReport</span>
+            </a>
+          </li>
+          <li>
+            <a href="/offerManagement">
+              <i class="zmdi zmdi-grid"></i> <span>OfferManagement</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!--End sidebar-wrapper-->
+
+      <!--Start topbar header-->
+      <header class="topbar-nav">
+        <nav class="navbar navbar-expand fixed-top">
+          <ul class="navbar-nav mr-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link toggle-menu" href="javascript:void();">
+                <i class="icon-menu menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+          <form id="logoutForm" action="/adminLogout" method="POST">
+            <button
+              type="submit"
+              class="nav-link btn btn-warning"
+              id="logoutBtn"
+            >
+              <i class="/logout"></i> Logout
+            </button>
+          </form>
+        </nav>
+      </header>
+      <!--End topbar header-->
+
+      <!-- user and product list  -->
+      <!-- Main content wrapper -->
+      <div class="content-wrapper">
+        <div class="container-fluid">
+          <div class="card mt-3">
+            <div class="card-content">
+              <div class="row row-group m-0">
+                <!-- Total Users -->
+                <div class="col-12 col-lg-6 col-xl-3 border-light">
+                  <div class="card-body">
+                    <h5 class="text-white mb-0">
+                      <%= totalUsersCount %> Total Users
+                      <span class="float-right">
+                        <i class="fa fa-users"></i>
+                      </span>
+                    </h5>
+                    <div class="progress my-3" style="height: 3px">
+                      <div class="progress-bar" style="width: 55%"></div>
+                    </div>
+                    <p class="mb-0 text-white small-font">
+                      Total Users
+                      <span class="float-right"
+                        >+4.2% <i class="zmdi zmdi-long-arrow-up"></i
+                      ></span>
+                    </p>
+                  </div>
+                </div>
+                <!-- Total Products -->
+                <div class="col-12 col-lg-6 col-xl-3 border-light">
+                  <div class="card-body">
+                    <h5 class="text-white mb-0">
+                      <%= totalProductsCount %> Total Products
+                      <span class="float-right">
+                        <i class="fa fa-cubes"></i>
+                      </span>
+                    </h5>
+                    <div class="progress my-3" style="height: 3px">
+                      <div class="progress-bar" style="width: 55%"></div>
+                    </div>
+                    <p class="mb-0 text-white small-font">
+                      Total Products
+                      <span class="float-right"
+                        >+1.2% <i class="zmdi zmdi-long-arrow-up"></i
+                      ></span>
+                    </p>
+                  </div>
+                </div>
+                <!-- Total Orders -->
+                <div class="col-12 col-lg-6 col-xl-3 border-light">
+                  <div class="card-body">
+                    <h5 class="text-white mb-0">
+                      <%= totalOrdersCount %> Total Orders
+                      <span class="float-right">
+                        <i class="fa fa-shopping-cart"></i>
+                      </span>
+                    </h5>
+                    <div class="progress my-3" style="height: 3px">
+                      <div class="progress-bar" style="width: 55%"></div>
+                    </div>
+                    <p class="mb-0 text-white small-font">
+                      Total Orders
+                      <span class="float-right"
+                        >+3.5% <i class="zmdi zmdi-long-arrow-up"></i
+                      ></span>
+                    </p>
+                  </div>
+                </div>
+                <!-- Total Sales -->
+                <div class="col-12 col-lg-6 col-xl-3 border-light">
+                  <div class="card-body">
+                    <h5 class="text-white mb-0">
+                      <%= totalSales.toFixed()%> Total Sales
+                      <span class="float-right">
+                        <i class="fa fa-money"></i>
+                      </span>
+                    </h5>
+                    <div class="progress my-3" style="height: 3px">
+                      <div class="progress-bar" style="width: 55%"></div>
+                    </div>
+                    <p class="mb-0 text-white small-font">
+                      Total Sales
+                      <span class="float-right"
+                        >+2.8% <i class="zmdi zmdi-long-arrow-up"></i
+                      ></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sales Report Section -->
+
+          <!-- Overall Sales Section -->
+          <div class="card mt-3">
+            <div class="card-content">
+              <div class="card">
+                <div class="card-body">
+                  <!-- Filter Section -->
+                  <div class="filter-section mb-3">
+                    <form id="dateRangeForm">
+                      <label for="startDate">Start Date:</label>
+                      <input type="date" id="startDate" name="startDate" />
+                      <label for="endDate">End Date:</label>
+                      <input type="date" id="endDate" name="endDate" />
+                      <button
+                        class="btn btn-light"
+                        type="button"
+                        onclick="applyFilter()"
+                      >
+                        Apply Filter
+                      </button>
+                      <button
+                        id="clearFilterButton"
+                        class="btn btn-danger"
+                        type="button"
+                        onclick="clearFilter()"
+                      >
+                        Clear Filter
+                      </button>
+                    </form>
+                    <div class="mt-3">
+                      <button
+                        class="btn btn-info"
+                        onclick="setDateRange('today')"
+                      >
+                        Today
+                      </button>
+                      <button
+                        class="btn btn-info"
+                        onclick="setDateRange('yesterday')"
+                      >
+                        Yesterday
+                      </button>
+                      <button
+                        class="btn btn-info"
+                        onclick="setDateRange('last7days')"
+                      >
+                        Last 7 Days
+                      </button>
+                      <button
+                        class="btn btn-info"
+                        onclick="setDateRange('last30days')"
+                      >
+                        Last 30 Days
+                      </button>
+                    </div>
+                  </div>
+                  <h2>Orders</h2>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Product Name</th>
+                          <th>Price</th>
+                          <th>Payment</th>
+                          <th>Delivered Date</th>
+                          <th>Status</th>
+                          <th>Quantity</th>
+                          <th>Discount</th>
+                          <th>Coupon Deduction</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% orders.forEach(order => { %> <%
+                        order.products.forEach(product => { %>
+                        <tr>
+                          <td class="ellipsis">
+                            <%= product.productId.name %>
+                          </td>
+                          <td><%= product.discountedPrice.toFixed() %></td>
+                          <td><%= order.payment %></td>
+                          <td>
+                            <%= product.deliveryDateTime ? new
+                            Date(product.deliveryDateTime).toLocaleDateString()
+                            : "N/A" %>
+                          </td>
+                          <td>
+                            <span
+                              class="badge <%= product.status === 'Delivered' ? 'bg-success' : 'bg-warning' %>"
+                              ><%= product.status %></span
+                            >
+                          </td>
+                          <td><%= product.quantity %></td>
+                          <td>
+                            <%= order.discountValue ?
+                            order.discountValue.toFixed() : 0 %>
+                          </td>
+                          <td>
+                            <%= (product.productId.offerPrice -
+                            product.discountedPrice).toFixed() %>
+                          </td>
+                          <td>
+                            <button
+                              class="btn btn-warning"
+                              onclick="redirectToViewOrders('<%= order._id %>','<%= product.productId._id %>')"
+                            >
+                              View details
+                            </button>
+                          </td>
+                        </tr>
+                        <% }) %> <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- Pagination -->
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <% if (currentPage > 1) { %>
+                      <li class="page-item">
+                        <a
+                          class="page-link"
+                          href="?page=<%= currentPage - 1 %>&limit=<%= limit %>"
+                          aria-label="Previous"
+                        >
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <% } %> <% for (let i = 1; i <= totalPages; i++) { %>
+                      <li
+                        class="page-item <%= currentPage === i ? 'active' : '' %>"
+                      >
+                        <a
+                          class="page-link"
+                          href="?page=<%= i %>&limit=<%= limit %>"
+                          ><%= i %></a
+                        >
+                      </li>
+                      <% } %> <% if (currentPage < totalPages) { %>
+                      <li class="page-item">
+                        <a
+                          class="page-link"
+                          href="?page=<%= currentPage + 1 %>&limit=<%= limit %>"
+                          aria-label="Next"
+                        >
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                      <% } %>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12 col-lg-3 mb-3">
+              <div class="card">
+                <div class="card-header">Orders Today</div>
+                <div class="card-body">
+                  <h5 id="ordersToday" class="text-center">0</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+              <div class="card">
+                <div class="card-header">Orders Yesterday</div>
+                <div class="card-body">
+                  <h5 id="ordersYesterday" class="text-center">0</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+              <div class="card">
+                <div class="card-header">Orders This Week</div>
+                <div class="card-body">
+                  <h5 id="ordersThisWeek" class="text-center">0</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+              <div class="card">
+                <div class="card-header">Orders This Month</div>
+                <div class="card-body">
+                  <h5 id="ordersThisMonth" class="text-center">0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">Order Count by Period</div>
+                <div class="card-body">
+                  <canvas id="ordersChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Outlook Section -->
+          <!-- Performance Outlook Section -->
+          <div class="row mt-3">
+            <!-- Top Selling Products -->
+            <div class="col-12 col-lg-4 mb-3">
+              <div class="card">
+                <div class="card-header">Top Selling Products</div>
+                <div class="table-responsive">
+                  <table class="table align-items-center">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Total Orders</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% topSellingProducts.forEach(product => { %>
+                      <tr>
+                        <td class="ellipsis">
+                          <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                              <div class="fw-bold"><%= product.name %></div>
+                              <div class="text-muted small">
+                                <%= product.category %>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span class="badge bg-success"
+                            ><%= product.totalOrders %></span
+                          >
+                        </td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Selling Categories -->
+            <div class="col-12 col-lg-4 mb-3">
+              <div class="card">
+                <div class="card-header">Top Selling Categories</div>
+                <div class="table-responsive">
+                  <table class="table align-items-center">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Total Orders</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% topSellingCategories.forEach(category => { %>
+                      <tr>
+                        <td><%= category.categoryName %></td>
+                        <td>
+                          <span class="badge bg-primary"
+                            ><%= category.totalOrders %></span
+                          >
+                        </td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Selling Brands -->
+            <div class="col-12 col-lg-4 mb-3">
+              <div class="card">
+                <div class="card-header">Top Selling Brands</div>
+                <div class="table-responsive">
+                  <table class="table align-items-center">
+                    <thead>
+                      <tr>
+                        <th>Brand</th>
+                        <th>Total Orders</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% topSellingBrands.forEach(brand => { %>
+                      <tr>
+                        <td><%= brand._id %></td>
+                        <td>
+                          <span class="badge bg-warning"
+                            ><%= brand.totalOrders %></span
+                          >
+                        </td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- user and product list end -->
+
+      <!--End content-wrapper-->
+      <!--Start Back To Top Button-->
+      <a href="javaScript:void();" class="back-to-top"
+        ><i class="fa fa-angle-double-up"></i>
+      </a>
+      <!--End Back To Top Button-->
+
+      <!--Start footer-->
+      <footer class="footer">
+        <div class="container">
+          <div class="text-center">Copyright © 2024 WoodWorks Admin</div>
+        </div>
+      </footer>
+      <!--End footer-->
+
+      <!--start color switcher-->
+      <div class="right-sidebar">
+        <div class="switcher-icon">
+          <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+        </div>
+        <div class="right-sidebar-content">
+          <p class="mb-0">Gaussion Texture</p>
+          <hr />
+
+          <ul class="switcher">
+            <li id="theme1"></li>
+            <li id="theme2"></li>
+            <li id="theme3"></li>
+            <li id="theme4"></li>
+            <li id="theme5"></li>
+            <li id="theme6"></li>
+          </ul>
+
+          <p class="mb-0">Gradient Background</p>
+          <hr />
+
+          <ul class="switcher">
+            <li id="theme7"></li>
+            <li id="theme8"></li>
+            <li id="theme9"></li>
+            <li id="theme10"></li>
+            <li id="theme11"></li>
+            <li id="theme12"></li>
+            <li id="theme13"></li>
+            <li id="theme14"></li>
+            <li id="theme15"></li>
+          </ul>
+        </div>
+      </div>
+      <!--end color switcher-->
+    </div>
+    <!--End wrapper-->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!-- simplebar js -->
+    <script src="../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../assets/js/sidebar-menu.js"></script>
+    <!-- loader scripts -->
+    <script src="../assets/js/jquery.loading-indicator.js"></script>
+    <!-- Custom scripts -->
+    <script src="../assets/js/app-script.js"></script>
+    <!-- Chart js -->
+
+    <!-- Index js -->
+    <script src="../assets/js/index.js"></script>
+    <script>
+      // async function clearFilter() {
+      //   location.reload();
+      // }
+
+      document
+        .getElementById("clearFilterButton")
+        .addEventListener("click", function () {
+          window.location.reload();
+        });
+
+      async function fetchOrderCounts() {
+        const response = await fetch("/orderCountByDate");
+        if (!response.ok) {
+          console.error("Failed to fetch order counts");
+          return;
+        }
+
+        const data = await response.json();
+
+        // Update the counts in the HTML elements
+        document.getElementById("ordersToday").innerText = data.today;
+        document.getElementById("ordersYesterday").innerText = data.yesterday;
+        document.getElementById("ordersThisWeek").innerText = data.thisWeek;
+        document.getElementById("ordersThisMonth").innerText = data.thisMonth;
+
+        // Render the chart
+        const ctx = document.getElementById("ordersChart").getContext("2d");
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Today", "Yesterday", "This Week", "This Month"],
+            datasets: [
+              {
+                label: "Number of Orders",
+                data: [
+                  data.today,
+                  data.yesterday,
+                  data.thisWeek,
+                  data.thisMonth,
+                ],
+                backgroundColor: [
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(153, 102, 255, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+
+      // Call the function to fetch and render the counts
+      fetchOrderCounts();
+
+      async function applyFilter() {
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        const response = await fetch("/filterOrders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ startDate, endDate }),
+        });
+
+        const orders = await response.json();
+        renderOrders(orders);
+      }
+
+      async function clearFilter() {
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+
+        const response = await fetch("/filterOrders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        });
+
+        const orders = await response.json();
+        renderOrders(orders);
+      }
+
+      async function setDateRange(range) {
+        const response = await fetch("/filterOrders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ range }),
+        });
+
+        const orders = await response.json();
+        renderOrders(orders);
+      }
+
+      function renderOrders(orders) {
+        const tbody = document.querySelector("tbody");
+        tbody.innerHTML = "";
+
+        orders.forEach((order) => {
+          order.products.forEach((product) => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+        <td class="ellipsis">${product.productId.name}</td>
+        <td>${product.discountedPrice.toFixed()}</td>
+        <td>${order.payment}</td>
+        <td>${
+          product.deliveryDateTime
+            ? new Date(product.deliveryDateTime).toLocaleDateString()
+            : "N/A"
+        }</td>
+        <td><span class="badge ${
+          product.status === "Delivered" ? "bg-success" : "bg-warning"
+        }">${product.status}</span></td>
+        <td>${product.quantity}</td>
+        <td>${order.discountValue ? order.discountValue.toFixed() : 0}</td>
+        <td>${(
+          product.productId.offerPrice - product.discountedPrice
+        ).toFixed()}</td>
+        <td><button class="btn btn-warning" onclick="redirectToViewOrders('${
+          order._id
+        }', '${product.productId._id}')">View details</button></td>
+      `;
+
+            tbody.appendChild(row);
+          });
+        });
+      }
+
+      function redirectToViewOrders(orderId, productId) {
+        window.location.href = `/viewOrderSales/${orderId}/${productId}`;
+      }
+    </script>
+  </body>
+</html>

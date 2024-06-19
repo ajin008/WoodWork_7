@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      /* Your custom styles here */
+      .background-radial-gradient {
+        background-color: #d9d9d9c8;
+        /* Increase the height of the container */
+        min-height: 100vh; /* Adjust this value as needed */
+      }
+
+      .bg-glass {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: saturate(200%) blur(25px);
+      }
+
+      .form-placeholder ::placeholder {
+        color: #fff8f8; /* Light grey color for form labels */
+      }
+
+      .form-control {
+        background-color: #f8f9fa; /* Light grey background for form controls */
+        color: #000; /* Black color for form controls */
+      }
+
+      .otp-block {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-right: 5px;
+        border: 2px solid #ced4da;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 50px;
+        transition: border-color 0.5s ease-in-out; /* Add transition for glowing effect */
+      }
+
+      .otp-block.filled {
+        border-color: #28a745;
+        animation: glow 1s infinite alternate; /* Add glowing effect animation */
+      }
+
+      .btn-success {
+        padding: 0.75rem 2rem; /* Reduced button padding */
+        font-size: 0.9rem; /* Reduced button font size */
+        background-color: #016a70; /* Green color for primary button */
+        border-color: #016a70; /* Green color for button border */
+      }
+      .btn-success:hover {
+        background-color: #030503; /* Darker green color on button hover */
+        border-color: #000000; /* Darker green color on button border hover */
+      }
+
+      @keyframes glow {
+        from {
+          border-color: #016a70;
+          box-shadow: 0 0 10px #016a70, 0 0 20px #016a70, 0 0 30px #016a70;
+        }
+        to {
+          border-color: #016a70;
+          box-shadow: 0 0 20px #016a70, 0 0 30px #016a70, 0 0 40px #016a70;
+        }
+      }
+
+      .brand-name.move-right-bottom {
+        position: relative;
+        top: 30px; /* Adjust as needed */
+        right: -50px; /* Adjust as needed */
+      }
+
+      /* Timer styles */
+      .timer-container {
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: #908889;
+      }
+      /* navbar style start */
+      .navbar-custom {
+        background-color: #d9d9d9c8;
+      }
+      .navbar-brand {
+        color: #4b4b4b;
+      }
+      .nav-link {
+        color: #4b4b4b;
+      }
+      /* navbar style end */
+    </style>
+  </head>
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar-expand-md navbar-dark navbar-custom"
+      aria-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="landingPage">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/landingPage">Home</a>
+            </li>
+            <li><a class="nav-link" href="about">About us</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <!-- Section: OTP Verification Block -->
+    <section class="background-radial-gradient overflow-hidden">
+      <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+          <div
+            class="col-lg-6 mb-5 mb-lg-0"
+            style="z-index: 10; position: relative"
+          >
+            <img
+              src="./img/pngwing.com (7).png"
+              style="max-width: 90%; height: auto"
+            />
+          </div>
+          <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+            <div
+              id="radius-shape-1"
+              class="position-absolute rounded-circle shadow-5-strong"
+            ></div>
+            <div
+              id="radius-shape-2"
+              class="position-absolute shadow-5-strong"
+            ></div>
+            <div class="card bg-glass">
+              <div class="card-body px-4 py-5 px-md-5">
+                <h2 class="text-center mb-4">Enter the Confirmation Code</h2>
+                <!-- OTP Verification Form -->
+                <form id="otpForm" action="/signupOtpUser" method="post">
+                  <div class="form-outline mb-4 d-flex justify-content-center">
+                    <!-- OTP Blocks -->
+                    <input
+                      type="text"
+                      class="form-control otp-block"
+                      id="otpBlock1"
+                      name="otp1"
+                      maxlength="1"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required
+                    />
+                    <input
+                      type="text"
+                      class="form-control otp-block"
+                      id="otpBlock2"
+                      name="otp2"
+                      maxlength="1"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required
+                    />
+                    <input
+                      type="text"
+                      class="form-control otp-block"
+                      id="otpBlock3"
+                      name="otp3"
+                      maxlength="1"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required
+                    />
+                    <input
+                      type="text"
+                      class="form-control otp-block"
+                      id="otpBlock4"
+                      name="otp4"
+                      maxlength="1"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required
+                    />
+                    <input
+                      type="text"
+                      class="form-control otp-block"
+                      id="otpBlock5"
+                      name="otp5"
+                      maxlength="1"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required
+                    />
+                    <input
+                      type="text"
+                      class="form-control otp-block"
+                      id="otpBlock6"
+                      name="otp6"
+                      maxlength="1"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      required
+                    />
+                  </div>
+                  <input type="hidden" name="email" value="<%= email %>" />
+                  <input
+                    type="hidden"
+                    id="timerStart"
+                    name="timerStart"
+                    value="<%= timerStart %>"
+                  />
+                  <!-- Submit button -->
+                  <div
+                    class="d-flex justify-content-center align-items-center vh-1"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-success btn-block mb-4 text-center"
+                    >
+                      Enter OTP
+                    </button>
+                  </div>
+                </form>
+
+                <!-- Flash message -->
+                <% if (messages.error) { %>
+                <div
+                  id="error-message"
+                  class="alert alert-danger text-center"
+                  role="alert"
+                  style="background-color: #001524; color: #ffffff"
+                >
+                  <%= messages.error %>
+                </div>
+                <% } %>
+
+                <!-- Timer and Resend Now button -->
+                <h1 class="fs-6 text-center">
+                  We have sent an OTP to <%= email %>
+                </h1>
+                <div
+                  class="timer-container d-flex justify-content-center align-items-center"
+                  id="timer"
+                ></div>
+                <div
+                  class="d-flex justify-content-center align-items-center vh-1"
+                >
+                  <footer class="text-center">
+                    Didn’t receive Confirmation Code?
+                    <button id="resendNowBtn" class="btn btn-link">
+                      Resend Now
+                    </button>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- jQuery and Toastr.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        <% if (typeof accountCreated !== 'undefined' && accountCreated) { %>
+        toastr.success('Account created successfully! Redirecting to home...');
+        setTimeout(function () {
+          window.location.href = '/home';
+        }, 3000); // Redirect after 3 seconds
+        <% } %>
+
+        // Set the timer duration in seconds (5 minutes)
+        var timerDuration = 5 * 60;
+        var timerStart = parseInt($("#timerStart").val());
+
+        if (!timerStart) {
+          timerStart = Math.floor(Date.now() / 1000);
+          $("#timerStart").val(timerStart);
+        }
+
+        // Get the timer element
+        var timerElement = $("#timer");
+
+        // Function to update the timer display
+        function updateTimerDisplay(timeRemaining) {
+          var minutes = Math.floor(timeRemaining / 60);
+          var seconds = timeRemaining % 60;
+          timerElement.text(
+            "Time remaining: " +
+              minutes +
+              ":" +
+              (seconds < 10 ? "0" : "") +
+              seconds
+          );
+        }
+
+        // Function to start the timer
+        function startTimer() {
+          var currentTime = Math.floor(Date.now() / 1000);
+          var elapsedTime = currentTime - timerStart;
+          var timeRemaining = timerDuration - elapsedTime;
+          updateTimerDisplay(timeRemaining);
+
+          var timerInterval = setInterval(function () {
+            timeRemaining--;
+            if (timeRemaining <= 0) {
+              clearInterval(timerInterval);
+              timerElement.text("OTP expired. Please request a new one.");
+              // Optionally, handle expiration here (e.g., disable input fields)
+            } else {
+              updateTimerDisplay(timeRemaining);
+            }
+          }, 1000); // Update the display every second
+        }
+
+        // Start the timer when the page loads
+        startTimer();
+
+        // Handle click event on "Resend Now" button
+        $("#resendNowBtn").on("click", function (event) {
+          // Prevent default button behavior
+          event.preventDefault();
+
+          // Make an AJAX request to resend the OTP
+          $.ajax({
+            url: "/signupResendOtp", // Your server route for resending OTP
+            method: "POST",
+            success: function (response) {
+              // Handle successful response (e.g., display a success message)
+              alert("OTP resent successfully!");
+              // Reset the timer
+              timerStart = Math.floor(Date.now() / 1000);
+              $("#timerStart").val(timerStart);
+              startTimer();
+            },
+            error: function (xhr, status, error) {
+              // Handle error response (e.g., display an error message)
+              console.error("Error resending OTP:", error);
+              alert("Error resending OTP. Please try again.");
+            },
+          });
+        });
+
+        // Handle keyup and input events on OTP input fields
+        $('[id^="otpBlock"]')
+          .on("keydown", function (event) {
+            var blockNum = parseInt($(this).attr("id").replace("otpBlock", ""));
+            var otpValue = $(this).val().trim();
+
+            // Handle backspace key press
+            if (event.which === 8 && otpValue === "") {
+              $("#otpBlock" + (blockNum - 1)).focus();
+            }
+          })
+          .on("input", function (event) {
+            // Allow only numeric values
+            this.value = this.value.replace(/[^0-9]/g, "");
+
+            var blockNum = parseInt($(this).attr("id").replace("otpBlock", ""));
+            var otpValue = $(this).val().trim();
+
+            // Move to the next block on input
+            if (otpValue !== "" && blockNum < 6) {
+              $("#otpBlock" + (blockNum + 1)).focus();
+            }
+
+            // Automatically submit form if OTP is complete
+            if (blockNum === 6 && otpValue !== "") {
+              $("#otpForm").submit();
+            }
+          });
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const errorMessage = document.getElementById("error-message");
+          if (errorMessage) {
+            setTimeout(() => {
+              errorMessage.style.display = "none";
+            }, 3000);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

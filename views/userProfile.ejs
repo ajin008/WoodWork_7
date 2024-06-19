@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="../style/tiny-slider.css" rel="stylesheet" />
+    <link href="../style/style.css" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>WoodWorks shop</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .transparent-card {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      .offcanvas-center {
+        position: fixed;
+        top: 50px;
+        left: 650px;
+        height: 90%;
+        width: 90%;
+        max-width: 600px;
+        z-index: 1050;
+      }
+      .custom-btn-sm {
+        padding: 0.35rem 0.9rem;
+        font-size: 0.85rem;
+      }
+      .card {
+        background-color: #fff;
+        position: relative;
+        left: 80px;
+        width: 400px;
+        border-radius: 33px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 3px 10px 0 rgba(0, 0, 0, 0.29);
+        padding: 2rem !important;
+      }
+      .no-shadow-card {
+        box-shadow: none !important;
+      }
+      .top-container {
+        display: flex;
+        align-items: center;
+      }
+      .profile-image {
+        border-radius: 10px;
+        border: 2px solid #5957f9;
+      }
+      .name {
+        font-size: 15px;
+        font-weight: bold;
+        color: #272727;
+        position: relative;
+        top: 8px;
+      }
+
+      .middle-container {
+        background-color: #eee;
+        border-radius: 12px;
+      }
+      .middle-container:hover {
+        border: 1px solid #77b0aa;
+      }
+      .dollar-div {
+        background-color: #468b97;
+        padding: 12px;
+        border-radius: 10px;
+      }
+      .round-div {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .dollar {
+        font-size: 16px !important;
+        color: #468b97 !important;
+        font-weight: bold !important;
+      }
+      .current-balance {
+        font-size: 15px;
+        color: #272727;
+        font-weight: bold;
+      }
+      .amount {
+        color: #016a70;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .dollar-sign {
+        font-size: 16px;
+        color: #272727;
+        font-weight: bold;
+      }
+      .recent-border {
+        border-left: 2px solid #3b474b;
+        display: flex;
+        align-items: center;
+      }
+      .recent-border:hover {
+        border-bottom: 1px solid #ffffdd !important;
+      }
+      .recent-orders {
+        font-size: 16px;
+        font-weight: 700;
+        color: #5957f9;
+        margin-left: 2px;
+      }
+
+      .wishlist-border:hover {
+        border-bottom: 1px solid #dee2e6 !important;
+      }
+      .fashion-studio {
+        font-size: 16px;
+        font-weight: 700;
+        color: #272727;
+      }
+      .fashion-studio-border:hover {
+        border-bottom: 1px solid #dee2e6 !important;
+      }
+      .delivery-details {
+        position: relative;
+        left: 190px;
+        width: 1050px;
+        border: 1px solid #f1efef;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+      }
+
+      .delivery-details h4 {
+        margin-bottom: 20px;
+      }
+
+      .delivery-details ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .delivery-details li {
+        margin-bottom: 15px;
+      }
+
+      .address-container {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .address-button {
+        font-size: 0.75rem;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        color: rgb(96, 96, 96);
+        text-align: left;
+        word-wrap: break-word;
+      }
+
+      .address-line {
+        display: block;
+        width: 100%;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .top-container {
+        color: #075d6b;
+      }
+      .custom-btn-sm {
+        border-color: #113946;
+        background-color: #113946;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li>
+              <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="../img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="../img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="../img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="../img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <% user.addresses.forEach((address, index) => { %>
+    <div
+      class="offcanvas offcanvas-center"
+      tabindex="-1"
+      id="addressOffcanvas<%= index %>"
+      aria-labelledby="addressOffcanvasLabel<%= index %>"
+    >
+      <div class="offcanvas-header">
+        <h5 id="addressOffcanvasLabel<%= index %>">
+          Address <%= index + 1 %> Details
+        </h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="fs-6">
+          <li><strong>Address:</strong> <%= address.address %></li>
+          <li><strong>Street:</strong> <%= address.street %></li>
+          <li><strong>City:</strong> <%= address.city %></li>
+          <li><strong>State:</strong> <%= address.state %></li>
+          <li><strong>Postal Code:</strong> <%= address.postalCode %></li>
+          <li><strong>Landmark:</strong> <%= address.landmark %></li>
+          <li><strong>House Number:</strong> <%= address.houseNumber %></li>
+        </ul>
+        <div class="m-4">
+          <a
+            href="/addressEdit/<%= address._id %>"
+            class="btn btn-primary btn-sm"
+            role="button"
+            >Edit</a
+          >
+          <div><br /></div>
+          <form
+            action="/addressRemove/<%= address._id %>"
+            method="post"
+            id="removeAddressForm<%= address._id %>"
+          >
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              onclick="confirmRemove('<%= address._id %>')"
+            >
+              remove
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+    <section class="section about-section gray-bg mt-3" id="about">
+      <div class="container">
+        <div class="row align-items-start">
+          <div class="col-lg-6">
+            <div class="container d-flex justify-content-center">
+              <div class="card no-shadow-card">
+                <div class="top-container d-flex justify-content-center">
+                  <i class="fas fa-user-circle fa-5x"></i>
+                </div>
+                <div
+                  class="middle-container d-flex justify-content-between align-items-center mt-3 p-2"
+                >
+                  <div class="dollar-div px-3">
+                    <div class="round-div">
+                      <i class="fa fa-money-bill-alt dollar"></i>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column text-right mr-2">
+                    <span class="amount"
+                      ><span class="dollar-sign"></span
+                      ><%=walletBalance.toFixed() %></span
+                    >
+                  </div>
+                </div>
+                <div class="wishlist-border pt-2">
+                  <a
+                    href="/MyOder_detailsRendering/<%= userId %>"
+                    class="btn custom-btn-sm me-2 mt-2"
+                    >My Orders</a
+                  >
+                </div>
+                <div class="fashion-studio-border pt-2">
+                  <a
+                    href="/deliverd_detailsRendering/<%= userId %>"
+                    class="btn custom-btn-sm mt-2"
+                    >Delivered</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="about-text go-to">
+              <h3 class="dark-color">User Profile</h3>
+              <div class="row about-list">
+                <div class="col-md-6">
+                  <div class="media">
+                    <label>First Name:</label>
+                    <p><%= user.FirstName %></p>
+                  </div>
+                  <div class="media">
+                    <label>Last Name:</label>
+                    <p><%= user.LastName %></p>
+                  </div>
+                  <div class="media">
+                    <label>E-mail:</label>
+                    <p><%= user.email %></p>
+                  </div>
+                  <div class="media">
+                    <label>Phone:</label>
+                    <p><%= user.phone %></p>
+                  </div>
+                  <div class="media">
+                    <a
+                      href="/addAddress/<%= userId %>"
+                      class="btn btn-warning custom-btn-sm me-2"
+                      >Add Addresses</a
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="media">
+                    <a
+                      href="/Editprofile/<%= userId %>"
+                      class="btn btn-primary custom-btn-sm me-2"
+                      role="button"
+                      >Edit</a
+                    >
+                  </div>
+                  <div class="media mt-2">
+                    <a
+                      href="/reset-password"
+                      class="btn btn-primary custom-btn-sm me-2"
+                      >Reset Password</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="delivery-details mt-5 p-3 mb-5 bg-white rounded">
+            <h4 class="dark-color">Delivery Details</h4>
+            <div class="card-body">
+              <ul>
+                <% user.addresses.forEach((address, index) => { %>
+                <li class="m-3">
+                  <label>
+                    <input type="radio" name="defaultAddress" value="<%= index
+                    %>" <% if (index === 0) { %>checked<% } %>> Address <%=
+                    index + 1 %>
+                  </label>
+                  <div class="address-container">
+                    <button
+                      class="btn btn-sm address-button"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#addressOffcanvas<%= index %>"
+                      aria-controls="addressOffcanvas<%= index %>"
+                    >
+                      <span class="address-line"> <%= address.address %> </span>
+                    </button>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="../img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a href="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/custom.js"></script>
+    <script>
+      function confirmRemove(addressId) {
+        if (confirm("Are you sure you want to remove this address?")) {
+          document.getElementById("removeAddressForm" + addressId).submit();
+        }
+      }
+    </script>
+  </body>
+</html>

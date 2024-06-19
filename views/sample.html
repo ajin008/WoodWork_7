@@ -1,0 +1,634 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="/style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="/style/tiny-slider.css" rel="stylesheet" />
+    <link href="/style/style.css" rel="stylesheet" />
+    <title>WoodWorks shop product page</title>
+    <style>
+      .custom-red {
+        background-color: #ff4d4d; /* Custom red color */
+        color: white;
+        border-color: #ff3333; /* Custom border color */
+        width: 100%; /* Take full width of parent */
+      }
+
+      .custom-green {
+        background-color: #11110f; /* Custom green color */
+        color: white;
+        border-color: #0b0b0b; /* Custom border color */
+        width: 100%; /* Take full width of parent */
+      }
+
+      .custom-buy {
+        background-color: #10a312; /* Custom green color */
+        color: white;
+        border-color: #107e01;
+        width: 100%; /* Take full width of parent */
+      }
+      .input-group-prepend,
+      .input-group-append {
+        flex: 1;
+      }
+      .zoom img {
+        transition: transform 0.3s ease;
+      }
+
+      .zoom img:hover {
+        transform: scale(1.2);
+      }
+
+      .search-transition {
+        transition: width 0.5s ease-in-out;
+      }
+
+      .search-transition:hover {
+        width: 200px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+      }
+      .rate:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+      }
+      .rate:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+      }
+      .rate:not(:checked) > label:before {
+        content: "★ ";
+      }
+      .rate > input:checked ~ label {
+        color: #ffc700;
+      }
+      .rate:not(:checked) > label:hover,
+      .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+      }
+      .rate > input:checked + label:hover,
+      .rate > input:checked + label:hover ~ label,
+      .rate > input:checked ~ label:hover,
+      .rate > input:checked ~ label:hover ~ label,
+      .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="home">Home</a>
+            </li>
+            <li class="active">
+              <a class="nav-link" href="shop">Shop</a>
+            </li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="#"><img src="/img/user.svg" /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="cart.html"
+                ><img src="/img/cart.svg"
+              /></a>
+            </li>
+          </ul>
+        </div>
+        <form action="/logout" method="post">
+          <button type="submit" class="btn btn-white-outline">Logout</button>
+        </form>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <div class="container py-5">
+      <div class="row">
+        
+        <!-- Left side: Main image and additional images -->
+        <div class="col-md-6">
+          <div class="zoom">
+            <img
+              id="mainImage"
+              src="<%= product.images[0] %>"
+              alt="<%= product.name %>"
+              class="img-fluid main-image"
+            />
+          </div>
+          <div class="row mt-4">
+            <div class="col-1 align-self-center">
+              <a href="#multi-item-example" role="button" data-bs-slide="prev">
+                <i class="text-dark fas fa-chevron-left"></i>
+                <span class="sr-only">Previous</span>
+              </a>
+            </div>
+            <div
+              id="multi-item-example"
+              class="col-10 carousel slide carousel-multi-item"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner product-links-wap" role="listbox">
+                <% product.images.forEach((image, index) => { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <div class="row">
+                    <div class="col-4">
+                      <a href="#" onclick="changeMainImage('<%= image %>')">
+                        <img
+                          class="card-img img-fluid"
+                          src="<%= image %>"
+                          alt="Product Image <%= index + 1 %>"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+            </div>
+            <div class="col-1 align-self-center">
+              <a href="#multi-item-example" role="button" data-bs-slide="next">
+                <i class="text-dark fas fa-chevron-right"></i>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side: Product details -->
+        <div class="col-md-6">
+          <h2 class="display-6"><%= product.name %></h2>
+          <p class="h7"><%= product.description %></p>
+          <!-- Other product details -->
+          <div class="mb-3">
+            <span class="me-2">Stock:</span>
+            <span class="fw-bold"><%= product.qty %> In Stock</span>
+          </div>
+          <div class="mb-3">
+            <span class="me-2">Actual Price:</span>
+            <span class="fw-bold"><%= product.actualPrice %></span>
+          </div>
+          <div class="mb-3">
+            <span class="me-2">Offer Price:</span>
+            <span class="fw-bold"><%= product.offerPrice %></span>
+          </div>
+          <div class="mb-3">
+            <span class="me-2">Total Saving:</span>
+            <span class="fw-bold"><%= totalSaving %></span>
+          </div>
+          <!-- Accordion for product details -->
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <!-- Add your accordion content here -->
+          </div>
+
+          <div class="mb-3 d-flex align-items-center">
+            <label for="rating" class="form-label me-2">Rating:</label>
+            <div class="rate">
+              <input type="radio" id="star5" name="rate" value="5" />
+              <label for="star5" title="5 stars">5 stars</label>
+              <input type="radio" id="star4" name="rate" value="4" />
+              <label for="star4" title="4 stars">4 stars</label>
+              <input type="radio" id="star3" name="rate" value="3" />
+              <label for="star3" title="3 stars">3 stars</label>
+              <input type="radio" id="star2" name="rate" value="2" />
+              <label for="star2" title="2 stars">2 stars</label>
+              <input type="radio" id="star1" name="rate" value="1" />
+              <label for="star1" title="1 star">1 star</label>
+            </div>
+          </div>
+
+          <!-- qty selection -->
+          <div class="mb-3 d-flex align-items-center">
+            <label for="quantity" class="form-label">Quantity:</label>
+            <div class="d-flex align-items-center">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="decreaseQty"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                class="form-control mx-2"
+                id="quantity"
+                value="1"
+                min="1"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="increaseQty"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <!-- Buttons -->
+          <div class="container">
+            <div class="row mt-4">
+              <!-- Add to wishlist button -->
+              <div class="col-md-4 mb-3">
+                <button type="button" class="btn btn-danger custom-red">
+                  <i class="bi bi-bag-heart"></i> Wishlist
+                </button>
+              </div>
+              <!-- Add to cart button -->
+              <div class="col-md-4 mb-3">
+                <form action="/addToCart" method="post">
+                  <input
+                    type="hidden"
+                    name="productId"
+                    value="<%= product.id %>"
+                  />
+                  <button type="submit" class="btn btn-success custom-green">
+                    <i class="bi bi-bag"></i> Add to Cart
+                  </button>
+                </form>
+              </div>
+
+              <!-- Buy now button -->
+              <div class="col-md-4 mb-3">
+                <button type="button" class="btn custom-buy">Buy Now</button>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion for product details -->
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <!-- Accordion item 1 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Product Details
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse show"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  <p><%= product.detailedInformation %></p>
+                  <!-- Add detailed product information here -->
+                </div>
+              </div>
+            </div>
+            <!-- Add more accordion items if needed -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- related product start -->
+    <div class="container py-5">
+      <div class="row">
+        <p class="fs-5">similar products</p>
+        <!-- product_list part start-->
+        <div class="row">
+          <!-- Start Column 1 -->
+          <div class="col-12 col-md-4 col-lg-3 mb-5">
+            <!-- Create a form for the product -->
+            <form action="/shop" method="post">
+              <!-- Hidden input field to store the product ID or other information -->
+              <input type="hidden" name="productId" value="product-3" />
+
+              <button type="submit" class="product-item border-0">
+                <img
+                  src="/img/product-3.png"
+                  class="img-fluid product-thumbnail"
+                />
+                <h3 class="product-title">Nordic Chair</h3>
+                <strong class="product-price">5000</strong>
+                <span class="icon-cross">
+                  <img src="/img/cross.svg" class="img-fluid" />
+                </span>
+              </button>
+            </form>
+          </div>
+          <!-- End Column 1 -->
+
+          <!-- Start Column 2 -->
+          <div class="col-12 col-md-4 col-lg-3 mb-5">
+            <!-- Create a form for the product -->
+            <form action="/shop" method="post">
+              <!-- Hidden input field to store the product ID or other information -->
+              <input type="hidden" name="productId" value="product-3" />
+
+              <button type="submit" class="product-item border-0">
+                <img
+                  src="/img/product-2.png"
+                  class="img-fluid product-thumbnail"
+                />
+                <h3 class="product-title">Nordic Chair</h3>
+                <strong class="product-price">5000</strong>
+                <span class="icon-cross">
+                  <img src="/img/cross.svg" class="img-fluid" />
+                </span>
+              </button>
+            </form>
+          </div>
+          <!-- End Column 2 -->
+
+          <!-- Start Column 3 -->
+          <div class="col-12 col-md-4 col-lg-3 mb-5">
+            <!-- Create a form for the product -->
+            <form action="/shop" method="post">
+              <!-- Hidden input field to store the product ID or other information -->
+              <input type="hidden" name="productId" value="product-3" />
+
+              <button type="submit" class="product-item border-0">
+                <img
+                  src="/img/product-1.png"
+                  class="img-fluid product-thumbnail"
+                />
+                <h3 class="product-title">Nordic Chair</h3>
+                <strong class="product-price">5000</strong>
+                <span class="icon-cross">
+                  <img src="/img/cross.svg" class="img-fluid" />
+                </span>
+              </button>
+            </form>
+          </div>
+          <!-- End Column 3 -->
+
+          <!-- Start Column 4 -->
+          <div class="col-12 col-md-4 col-lg-3 mb-5">
+            <!-- Create a form for the product -->
+            <form action="/shop" method="post">
+              <!-- Hidden input field to store the product ID or other information -->
+              <input type="hidden" name="productId" value="product-3" />
+
+              <button type="submit" class="product-item border-0">
+                <img
+                  src="/img/pngwing.com (13).png"
+                  class="img-fluid product-thumbnail"
+                />
+                <h3 class="product-title">Nordic Chair</h3>
+                <strong class="product-price">5000</strong>
+                <span class="icon-cross">
+                  <img src="/img/cross.svg" class="img-fluid" />
+                </span>
+              </button>
+            </form>
+          </div>
+          <!-- End Column 4 -->
+
+          <!-- product_list part end-->
+        </div>
+      </div>
+    </div>
+    <!-- related product end -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="/img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a href="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        new Zoom(document.querySelector(".main-image"));
+      });
+      function changeMainImage(imageSrc) {
+        document.getElementById("mainImage").src = imageSrc;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const quantityInput = document.getElementById("quantity");
+        const decreaseButton = document.getElementById("decreaseQty");
+        const increaseButton = document.getElementById("increaseQty");
+
+        decreaseButton.addEventListener("click", function () {
+          if (quantityInput.value > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+          }
+        });
+
+        increaseButton.addEventListener("click", function () {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zoom.js/1.7.21/zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/tiny-slider.js"></script>
+    <script src="/js/custom.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

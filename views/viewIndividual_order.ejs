@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="/style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="/style/tiny-slider.css" rel="stylesheet" />
+    <link href="/style/style.css" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>WoodWorks shop</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .section {
+        padding: 40px 0;
+      }
+
+      .about-section {
+        background: #f7f7f7;
+      }
+
+      .dark-color {
+        color: #333;
+      }
+
+      .about-text .media {
+        display: flex;
+        align-items: center;
+      }
+
+      .about-text .media .font-weight-bold {
+        min-width: 150px;
+        color: #555;
+      }
+
+      .about-text .media .ml-2 {
+        flex: 1;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        color: #fff;
+        text-transform: uppercase;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .product-image {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .product-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      @media (max-width: 767.98px) {
+        .about-section .row {
+          flex-direction: column-reverse;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li>
+              <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="/img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="/img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="/img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <!-- main section start -->
+
+    <!-- <div class="hero bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="text-dark">
+              <h3>Order Details</h3>
+              <p class="text-dark">productName: <%= order.productName %></p>
+
+              <p class="text-dark">Quantity: <%= order.quantity %></p>
+              <p class="text-dark">Price: <%= order.discountedPrice %></p>
+              <p class="text-dark">Order Type: <%= order.oderType %></p>
+              <p class="text-dark">
+                Delivered Date & Time: <%= new
+                Date(order.deliveryDateTime).toLocaleString('en-US', { timeZone:
+                'UTC' }) %>
+              </p>
+              <p class="text-dark">First Name: <%= order.firstName %></p>
+              <p class="text-dark">Last Name: <%= order.lastName %></p>
+              <p class="text-dark">Street: <%= order.street %></p>
+              <p class="text-dark">Email: <%= order.email %></p>
+              <p class="text-dark">Phone: <%= order.phone %></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div>
+              <img
+                src="/<%= product.images[0] %>"
+                alt="Product Image"
+                style="max-width: 400px"
+              />
+            </div>
+            <button class="btn" onclick="downloadInvoice('<%= order._id %>')">
+              Download Invoice
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <section class="section about-section gray-bg mt-4" id="about">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-1 order-lg-2">
+            <div class="product-image text-center">
+              <% if (product.images.length > 0) { %>
+              <img
+                src="/<%= product.images[0] %>"
+                alt="Product Image"
+                class="img-fluid"
+              />
+              <% } %>
+            </div>
+            <div class="text-center mt-4">
+              <button
+                class="btn btn btn-black btn-sm btn-block"
+                onclick="downloadInvoice('<%= order._id %>')"
+              >
+                Download Invoice
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-6 order-2 order-lg-1">
+            <div class="about-text go-to">
+              <h3 class="dark-color text-secondary">Order Details</h3>
+              <div class="row about-list">
+                <div class="col-md-12 text-secondary">
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Product Name</span>
+                    <span class="ml-2"><%= product.name %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Quantity</span>
+                    <span class="ml-2"
+                      ><%= order.products.find(p => p.productId._id.toString()
+                      === product._id.toString()).quantity %></span
+                    >
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Price</span>
+                    <span class="ml-2"
+                      ><%= order.products.find(p => p.productId._id.toString()
+                      === product._id.toString()).discountedPrice %></span
+                    >
+                  </div>
+                  <div class="media mb-3" style="display: none">
+                    <span class="font-weight-bold">Order ID:</span>
+                    <span class="ml-2"><%= order._id %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Order Type</span>
+                    <span class="ml-2"><%= order.oderType %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Delivered Date </span>
+                    <span class="ml-2">
+                      <%= new
+                      Date(order.deliveryDateTime).toLocaleString('en-US', {
+                      timeZone: 'UTC' }) %>
+                    </span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">First Name</span>
+                    <span class="ml-2"><%= order.firstName %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Last Name</span>
+                    <span class="ml-2"><%= order.lastName %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Street</span>
+                    <span class="ml-2"><%= order.street %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Email</span>
+                    <span class="ml-2"><%= order.email %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Phone</span>
+                    <span class="ml-2"><%= order.phone %></span>
+                  </div>
+                  <div class="media mb-3">
+                    <span class="font-weight-bold">Total Price</span>
+                    <span class="ml-2"
+                      ><%= order.products.find(p => p.productId._id.toString()
+                      === product._id.toString()).discountedPrice +
+                      order.deliveryCharge %></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- main section end -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="/img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary" id="downloadInvoiceBtn">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a href="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/tiny-slider.js"></script>
+    <script src="/js/custom.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      function downloadInvoice(orderId) {
+        fetch(`/download-invoice/${orderId}`)
+          .then((response) => {
+            // Check if response is successful
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            // Parse response as blob
+            return response.blob();
+          })
+          .then((blob) => {
+            // Create a temporary URL to download the blob
+            const url = window.URL.createObjectURL(blob);
+            // Create a link element to trigger the download
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `invoice_${orderId}.pdf`; // Example filename
+            // Trigger the click event to download the file
+            a.click();
+            // Clean up: remove the temporary URL
+            window.URL.revokeObjectURL(url);
+          })
+          .catch((error) => {
+            console.error("Error downloading invoice:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

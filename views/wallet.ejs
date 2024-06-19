@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="../style/tiny-slider.css" rel="stylesheet" />
+    <link href="../style/style.css" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>WoodWorks shop</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .mainContainer {
+        width: 400px;
+        height: 590px;
+        margin: auto; /* Center horizontally */
+        position: fixed; /* Fix the position */
+        top: 50%; /* Place it 50% from the top */
+        left: 50%; /* Place it 50% from the left */
+        transform: translate(-50%, -50%); /* Adjust for centering */
+        box-shadow: 0 0 10px rgba(18, 18, 18, 0.2);
+        background: white;
+        border-radius: 10px;
+      }
+      .cardHolder {
+        height: 300px;
+        background: linear-gradient(to right, #186f65, #186f65, #1eaa99);
+        border-radius: 3px;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .heading {
+        height: 40px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .stepHeading {
+        height: 20px;
+        font-size: 16px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .card {
+        height: 180px;
+        width: 280px;
+        background: white;
+        margin: 0 auto;
+        border-radius: 1.2em;
+        margin-top: 25px;
+        padding: 12px 20px;
+        position: relative;
+        border-radius: 5px;
+      }
+      .infoheader {
+        height: 20px;
+        font-size: 24px; /* Increased font size */
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #95a5a6;
+        text-align: center; /* Centered text */
+        margin-top: 20px; /* Adjusted margin top */
+      }
+      .payment {
+        height: 80px;
+        position: relative;
+        top: 24px;
+        box-shadow: 0 -5px 5px -5px #2323;
+        justify-content: space-around;
+      }
+      .val {
+        height: 40px;
+        font-size: 24px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        color: #6480ef;
+      }
+      .offcanvas-center {
+        position: relative;
+        top: 120px;
+        left: 810px;
+
+        width: 300px; /* Adjust width as needed */
+      }
+
+      /* Style the offcanvas header */
+      .offcanvas-header {
+        background-color: #f8f9fa; /* Set background color */
+      }
+
+      /* Style the offcanvas title */
+      .offcanvas-title {
+        margin: 0; /* Remove margin */
+      }
+
+      /* Style the offcanvas body */
+      .offcanvas-body {
+        padding: 20px; /* Add padding */
+      }
+    </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li>
+              <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="../img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="../img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="../img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="../img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <div class="mainContainer">
+      <div class="cardHolder">
+        <div class="header">
+          <div class="heading center">Wallet</div>
+          <div class="stepHeading center">currentBalance</div>
+          <div class="card">
+            <div class="middle part"></div>
+            <div class="bottom part">
+              <div class="expDate vcente text-center">
+                <div class="infoheader fs-1" id="walletBalance">
+                  <%= walletBalance.toFixed() %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="options vcenter">
+        <div class="wallet-actions p-2 text-center">
+          <button
+            type="button"
+            class="btn btn-black btn-sm btn-block"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#addFundsOffcanvas"
+          >
+            Add Funds
+          </button>
+        </div>
+        <div class="wallet-actions p-2 text-center">
+          <button
+            type="button"
+            class="btn btn-black btn-sm btn-block"
+            id="viewTransactionBtn"
+          >
+            View Transaction
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-center"
+      tabindex="-1"
+      id="addFundsOffcanvas"
+      aria-labelledby="addFundsOffcanvasLabel"
+    >
+      <div class="offcanvas-body">
+        <!-- Form to enter amount -->
+        <div class="mb-3">
+          <label for="amountInput" class="form-label">Amount (in INR)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="amountInput"
+            placeholder="Enter amount"
+          />
+        </div>
+        <!-- Button to initiate payment -->
+        <button id="initiatePaymentBtn" class="btn btn-primary">
+          Initiate Payment
+        </button>
+      </div>
+    </div>
+
+    <!-- HTML for the modal dialog -->
+    <div
+      class="modal fade"
+      id="transactionModal"
+      tabindex="-1"
+      aria-labelledby="transactionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="transactionModalLabel">
+              Wallet Transactions
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="transactionModalBody">
+            <!-- Transaction details will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Footer Section -->
+
+    <!-- End Footer Section -->
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/custom.js"></script>
+
+    <!-- ajax link -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Add this script to your HTML file -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("initiatePaymentBtn")
+          .addEventListener("click", async function () {
+            const amount = document.getElementById("amountInput").value;
+
+            try {
+              const response = await fetch("/create-paymentWallet", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount: amount }),
+              });
+
+              const { orderId } = await response.json();
+
+              const options = {
+                key: "rzp_test_PFqhrThyTWqHJx",
+                amount: amount * 100,
+                currency: "INR",
+                name: "Your Company Name",
+                description: "Wallet Recharge",
+                order_id: orderId,
+                handler: async function (response) {
+                  try {
+                    const verifyResponse = await fetch("/verify-payment", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        orderId: orderId,
+                        paymentId: response.razorpay_payment_id,
+                        signature: response.razorpay_signature,
+                      }),
+                    });
+
+                    const result = await verifyResponse.json();
+
+                    if (result.success) {
+                      alert("Payment successful and wallet updated!");
+                      window.location.reload();
+                    } else {
+                      alert("Payment verification failed. Please try again.");
+                    }
+                  } catch (error) {
+                    console.error("Error verifying payment:", error);
+                    alert("Error verifying payment. Please try again.");
+                  }
+                },
+                prefill: {
+                  name: "User Name",
+                  email: "user@example.com",
+                  contact: "9999999999",
+                },
+              };
+
+              const rzp = new Razorpay(options);
+              rzp.open();
+            } catch (error) {
+              console.error("Error initiating payment:", error);
+            }
+          });
+
+        document
+          .getElementById("viewTransactionBtn")
+          .addEventListener("click", function () {
+            fetchTransactions(1); // Fetch the first page of transactions
+          });
+
+        function fetchTransactions(page = 1) {
+          fetch(`/viewTransaction?page=${page}&limit=10`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              displayTransactions(data);
+            })
+            .catch((error) => {
+              console.error("Error fetching transactions:", error);
+              alert("Error fetching transactions. Please try again later.");
+            });
+        }
+
+        function displayTransactions(data) {
+          const { transactions, totalPages, currentPage } = data;
+          const transactionModalBody = document.getElementById(
+            "transactionModalBody"
+          );
+          transactionModalBody.innerHTML = ""; // Clear existing content
+
+          if (transactions && transactions.length > 0) {
+            transactions.forEach((transaction) => {
+              const transactionHtml = `
+              <div class="transaction-item">
+                <p><strong>Date:</strong> ${new Date(
+                  transaction.timestamp
+                ).toLocaleString()}</p>
+                <p><strong>Amount:</strong> ${transaction.amount}</p>
+                <p><strong>Type:</strong> ${transaction.type}</p>
+                <p><strong>Description:</strong> ${
+                  transaction.description || "No description"
+                }</p>
+              </div>
+              <hr>
+            `;
+              transactionModalBody.innerHTML += transactionHtml;
+            });
+          } else {
+            transactionModalBody.innerHTML =
+              "<p>No successful transactions found.</p>";
+          }
+
+          // Add pagination controls
+          const paginationControls = `
+          <nav>
+            <ul class="pagination justify-content-center">
+              <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+                <a class="page-link" href="#" id="prevPageBtn">Previous</a>
+              </li>
+              <li class="page-item disabled">
+                <a class="page-link" href="#">Page ${currentPage} of ${totalPages}</a>
+              </li>
+              <li class="page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }">
+                <a class="page-link" href="#" id="nextPageBtn">Next</a>
+              </li>
+            </ul>
+          </nav>
+        `;
+          transactionModalBody.innerHTML += paginationControls;
+
+          // Add event listeners for pagination buttons
+          document
+            .getElementById("prevPageBtn")
+            .addEventListener("click", (event) => {
+              event.preventDefault();
+              fetchTransactions(currentPage - 1);
+            });
+          document
+            .getElementById("nextPageBtn")
+            .addEventListener("click", (event) => {
+              event.preventDefault();
+              fetchTransactions(currentPage + 1);
+            });
+
+          // Show the modal dialog
+          $("#transactionModal").modal("show");
+        }
+      });
+    </script>
+  </body>
+</html>

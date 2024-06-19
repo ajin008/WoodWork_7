@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+    <!-- <link rel="shortcut icon" href="favicon.png" /> -->
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="/style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link href="/style/tiny-slider.css" rel="stylesheet" />
+    <link href="/style/style.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/imagezoom.js/dist/imagezoom.min.js"></script>
+
+    <title>WoodWorks shop product page</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .hidden {
+        display: none;
+      }
+      .custom-red {
+        background-color: #ff4d4d; /* Custom red color */
+        color: white;
+        border-color: #ff3333; /* Custom border color */
+        width: 100%; /* Take full width of parent */
+      }
+
+      .custom-green {
+        background-color: #11110f; /* Custom green color */
+        color: white;
+        border-color: #0b0b0b; /* Custom border color */
+        width: 100%; /* Take full width of parent */
+      }
+
+      .custom-buy {
+        background-color: #10a312; /* Custom green color */
+        color: white;
+        border-color: #107e01;
+        width: 100%; /* Take full width of parent */
+      }
+      .input-group-prepend,
+      .input-group-append {
+        flex: 1;
+      }
+      .zoom img {
+        transition: transform 0.3s ease;
+      }
+
+      .zoom img:hover {
+        transform: scale(1.2);
+      }
+
+      .search-transition {
+        transition: width 0.5s ease-in-out;
+      }
+
+      .search-transition:hover {
+        width: 200px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+      }
+      .rate:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+      }
+      .rate:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+      }
+      .rate:not(:checked) > label:before {
+        content: "★ ";
+      }
+      .rate > input:checked ~ label {
+        color: #ffc700;
+      }
+      .rate:not(:checked) > label:hover,
+      .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+      }
+      .rate > input:checked + label:hover,
+      .rate > input:checked + label:hover ~ label,
+      .rate > input:checked ~ label:hover,
+      .rate > input:checked ~ label:hover ~ label,
+      .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+      }
+
+      .main-image img {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px; /* Adjust the height as needed */
+        margin-bottom: 10px;
+      }
+
+      /* Additional images */
+      .additional-images img {
+        max-width: 100%;
+        height: auto;
+        max-height: 100px; /* Adjust the height as needed */
+        margin-bottom: 10px;
+      }
+      /* Style for the modal */
+      /* Modal Content (image) */
+      .modal-content {
+        margin: 0;
+        width: auto;
+        height: auto;
+        max-width: 90%;
+        max-height: 90%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999; /* Ensure modal is on top of overlay */
+      }
+
+      /* Enlarged Image */
+      #enlargedImage {
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+        background-color: #cdc9c9;
+      }
+
+      /* Close button */
+      .close {
+        position: fixed;
+        top: 15px;
+        right: 35px;
+        color: #9e9d9d;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* Overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        backdrop-filter: blur(8px); /* Add blur effect */
+        z-index: 999; /* Ensure overlay is below modal */
+      }
+
+      .xzoom {
+        cursor: zoom-in;
+      }
+
+      .main-image-container {
+        position: relative;
+      }
+
+      .zoomed-container {
+        position: absolute;
+        top: 0;
+        left: 110%;
+        width: 500px;
+        height: 500px;
+        border: 1px solid #ccc;
+        display: none;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        border: 1px solid #fbfbfb;
+        background-color: rgb(255, 255, 255);
+      }
+
+      .secondary-image {
+        cursor: pointer;
+      }
+
+      #errorToast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050; /* Adjust the z-index to make sure it appears above other content */
+      }
+
+      #successToast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050; /* Adjust the z-index to make sure it appears above other content */
+      }
+      .product-item {
+        text-decoration: none; /* Remove underline */
+      }
+
+      .product-item:hover {
+        text-decoration: none; /* Ensure no underline on hover */
+      }
+
+      /* Star rating CSS */
+      .stars {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      label.star {
+        float: right;
+        padding: 10px;
+        font-size: 20px;
+        color: #ccc; /* Default color for empty stars */
+        transition: all 0.2s;
+      }
+
+      label.star.checked {
+        color: #ffca00; /* Color for filled stars */
+      }
+
+      label.star:before {
+        content: "\f005"; /* Unicode character for a filled star */
+        font-family: FontAwesome;
+      }
+      /* btn */
+      .custom-red {
+        background-color: #ef6262 !important;
+        color: white !important;
+        border-color: #ef6262 !important;
+      }
+
+      .custom-cart {
+        background-color: #19a7ce !important;
+        color: white !important;
+        border-color: #19a7ce !important;
+      }
+
+      .custom-buy {
+        background-color: #1b9c85 !important;
+        color: white !important;
+        border-color: #1b9c85 !important;
+      }
+    </style>
+    <!-- <link rel=”stylesheet”
+    href=”https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css”
+    /> -->
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+      arial-label="Furni navigation bar "
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="active">
+              <a class="nav-link" href="/shop">Shop</a>
+            </li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="../img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="../img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="../img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="../img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <form action="/logout" method="post">
+          <button type="submit" class="btn btn-white-outline">Logout</button>
+        </form>
+        <div
+          id="successToast"
+          class="toast bg-success"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-body text-white"></div>
+        </div>
+        <div
+          id="errorToast"
+          class="toast bg-danger"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-body text-white"></div>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <div class="container py-5 mt-5">
+      <div class="row">
+        <!-- Left side: Main image and additional images -->
+        <div class="col-md-6 col-lg-5">
+          <div class="main-image-container mb-3">
+            <!-- Main Image -->
+            <div id="mainImageContainer" class="main-image mb-3">
+              <img
+                id="mainImage"
+                class="xzoom img-fluid"
+                src="/<%= product.images[0] %>"
+                alt="Main Image"
+              />
+            </div>
+            <!-- Zoomed Image Container -->
+            <div id="zoomedContainer" class="zoomed-container"></div>
+          </div>
+          <div class="additional-images d-flex flex-wrap gap-2">
+            <!-- Secondary Images -->
+            <% product.images.slice(1, 5).forEach((image, index) => { %>
+            <img
+              class="secondary-image img-thumbnail"
+              src="/<%= image %>"
+              alt="Secondary Image <%= index + 1 %>"
+              data-main-image="/<%= image %>"
+            />
+            <% }); %>
+          </div>
+        </div>
+
+        <!-- Modal for enlarged image -->
+        <div id="imageModal" class="modal">
+          <span class="close">&times;</span>
+          <img class="modal-content" id="enlargedImage" />
+        </div>
+
+        <!-- Right side: Product details -->
+        <div class="col-md-6">
+          <h2 class="display-6 fs-3"><%= product.name %></h2>
+          <p class="h7 mb-4"><%= product.description %></p>
+          <div class="mb-3">
+            <span class="me-2 fw-bold">Stock: </span>
+            <span class="text-muted" id="stock">Calculating...</span>
+          </div>
+          <div class="mb-3">
+            <span class="me-2 fw-bold">Color: </span>
+            <span class="text-muted"><%= product.color %></span>
+          </div>
+          <div class="mb-3">
+            <span class="me-2 fw-bold">Actual Price: </span>
+            <span class="text-muted"
+              >₹<%= product.actualPrice.toFixed() %></span
+            >
+          </div>
+          <div class="mb-3">
+            <span class="me-2 fw-bold">Offer Price: </span>
+            <span class="text-muted">₹<%= product.offerPrice.toFixed() %></span>
+          </div>
+          <div class="mb-3">
+            <span class="me-2 fw-bold">Total Saving: </span>
+            <span class="text-muted">₹<%= totalSaving.toFixed() %></span>
+          </div>
+
+          <div class="mb-3 d-flex align-items-center">
+            <span class="me-2 fw-bold">Rating:</span>
+            <div class="d-flex">
+              <% for (let i = 1; i <= 5; i++) { %>
+              <label
+                class="star star-<%= i %> <%= averageRating >= i ? 'checked' : '' %>"
+              ></label>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Quantity selection -->
+          <div class="mb-3 d-flex align-items-center">
+            <label for="quantity" class="form-label hidden">Qty: </label>
+            <div class="d-flex align-items-center">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="decreaseQty"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                class="form-control mx-2 text-center"
+                id="quantity"
+                value="1"
+                min="1"
+                readonly
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="increaseQty"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <!-- Buttons -->
+          <div class="row mt-4">
+            <div class="col-md-4 mb-3">
+              <button
+                type="button"
+                class="btn btn-danger custom-red add-to-wishlist w-100"
+                data-product-id="<%= product._id %>"
+              >
+                <i class="bi bi-bag-heart"></i> Wishlist
+              </button>
+            </div>
+            <div class="col-md-4 mb-3">
+              <button
+                class="btn add-to-cart w-100"
+                data-product-id="<%= product._id %>"
+              >
+                <i class="bi bi-cart-fill"></i> Add to Cart
+              </button>
+            </div>
+            <div class="col-md-4 mb-3">
+              <button id="buyNowBtn" class="btn custom-buy w-100">
+                Buy Now
+              </button>
+            </div>
+          </div>
+          <% if (messages.error) { %>
+          <div class="alert alert-danger text-center mt-3" role="alert">
+            <%= messages.error %>
+          </div>
+          <% } %>
+          <div class="single-product-content mt-4">
+            <h3>Product Details</h3>
+            <p><%= product.detailedInformation %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related product start -->
+    <div class="container py-5">
+      <div class="row">
+        <p class="fs-5">Similar Products</p>
+        <!-- Product list start -->
+        <div class="row">
+          <% similarProducts.forEach(similarProduct => { %>
+          <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 text-center">
+            <a class="product-item" href="/product/<%= similarProduct._id %>">
+              <img
+                src="/<%= similarProduct.images[0] %>"
+                class="img-fluid product-thumbnail"
+                alt="<%= similarProduct.name %>"
+              />
+              <h3 class="product-title fs-6"><%= similarProduct.name %></h3>
+              <strong class="product-price"
+                >Rs<%= similarProduct.offerPrice.toFixed() %></strong
+              >
+            </a>
+          </div>
+          <% }); %>
+        </div>
+        <!-- Product list end -->
+      </div>
+    </div>
+
+    <!-- related product end -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="/img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a href="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zoom.js/1.7.21/zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/tiny-slider.js"></script>
+    <script src="/js/custom.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      function changeMainImage(imageSrc) {
+        document.getElementById("mainImage").src = imageSrc;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const quantityInput = document.getElementById("quantity");
+        const decreaseButton = document.getElementById("decreaseQty");
+        const increaseButton = document.getElementById("increaseQty");
+
+        decreaseButton.addEventListener("click", function () {
+          if (quantityInput.value > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+          }
+        });
+
+        increaseButton.addEventListener("click", function () {
+          if (quantityInput.value < 5) {
+            // Check if quantity is less than 5
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+          } else {
+            alert("Maximum quantity allowed is 5.");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".add-to-cart").forEach((button) => {
+          button.addEventListener("click", function () {
+            const productId = this.getAttribute("data-product-id");
+
+            // Send AJAX request to add product to cart
+            addToCart(productId);
+          });
+        });
+      });
+
+      function addToCart(productId) {
+        // Send AJAX request to server
+        $.ajax({
+          type: "POST",
+          url: "/addToCart",
+          data: { productId },
+          success: function (response) {
+            if (response.success) {
+              showFlashMessage(response.success, "success");
+            }
+          },
+          error: function (xhr, status, error) {
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+              showFlashMessage(xhr.responseJSON.error, "error");
+            } else {
+              showFlashMessage(
+                "An error occurred while adding the product to the cart",
+                "error"
+              );
+            }
+          },
+        });
+      }
+
+      function showFlashMessage(message, type) {
+        const toast = document.getElementById(
+          type === "success" ? "successToast" : "errorToast"
+        );
+        const toastBody = toast.querySelector(".toast-body");
+        toastBody.textContent = message;
+        const toastInstance = new bootstrap.Toast(toast);
+        toastInstance.show();
+        setTimeout(function () {
+          toastInstance.hide();
+        }, 2000);
+      }
+
+      document
+        .getElementById("buyNowBtn")
+        .addEventListener("click", function () {
+          var productId = "<%= product._id %>"; // Replace this with the actual product ID
+          var selectedQty = document.getElementById("quantity").value;
+
+          // Make an AJAX request to the server-side endpoint
+          fetch("/buy", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: productId,
+              qty: selectedQty,
+            }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                // Handle HTML response directly
+                return response.text(); // Get response as text
+              }
+              throw new Error("Network response was not ok.");
+            })
+            .then((html) => {
+              // Render HTML directly
+              document.open(); // Clear the existing document
+              document.write(html); // Write the HTML response to the document
+              document.close(); // Close the document write operation
+            })
+            .catch((error) => {
+              // Handle errors
+              console.error(
+                "There was a problem with the fetch operation:",
+                error
+              );
+            });
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        updateStockQuantity();
+      });
+
+      function updateStockQuantity() {
+        const productId = "<%= product._id %>";
+
+        // Send AJAX request to fetch updated stock quantity
+        $.ajax({
+          type: "GET",
+          url: `/product/${productId}/stock`,
+          success: function (response) {
+            const remainingStock = response.remainingStock;
+            document.getElementById("stock").innerText =
+              remainingStock + " In Stock";
+          },
+          error: function (error) {
+            console.error("Error fetching stock quantity:", error);
+          },
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".add-to-wishlist").forEach((button) => {
+          button.addEventListener("click", function () {
+            const productId = this.getAttribute("data-product-id");
+
+            // Send AJAX request to add product to wishlist
+            addToWishlist(productId);
+          });
+        });
+      });
+
+      function addToWishlist(productId) {
+        // Send AJAX request to server
+        $.ajax({
+          type: "POST",
+          url: "/addToWishlist",
+          data: { productId },
+          success: function (response) {
+            // Check if the response contains an error message
+            if (response.error) {
+              // If an error message is present, display it to the user
+              alert(response.error);
+            } else {
+              // If no error, display success message to the user
+              alert(response.message);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Error adding product to wishlist:", error);
+            // Handle specific error status code
+            if (xhr.status === 400) {
+              // Display error message from server
+              alert(xhr.responseJSON.error);
+            } else {
+              // Display generic error message
+              alert("An error occurred while adding the product to wishlist.");
+            }
+          },
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const mainImage = document.getElementById("mainImage");
+        const secondaryImages = document.querySelectorAll(".secondary-image");
+        const zoomedContainer = document.getElementById("zoomedContainer");
+
+        // Function to handle mouse hover on the main image
+        mainImage.addEventListener("mousemove", function (event) {
+          const rect = mainImage.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          // Adjust the zoomed area based on the mouse position
+          const xZoomRatio = 2.5;
+          const yZoomRatio = 2.5;
+          const backgroundPositionX = -(x * xZoomRatio - 200);
+          const backgroundPositionY = -(y * yZoomRatio - 200);
+
+          // Apply the zoom effect to the main image
+          zoomedContainer.style.backgroundImage = `url('${mainImage.src}')`;
+          zoomedContainer.style.backgroundSize = `${
+            mainImage.offsetWidth * xZoomRatio
+          }px ${mainImage.offsetHeight * yZoomRatio}px`;
+          zoomedContainer.style.backgroundPosition = `${backgroundPositionX}px ${backgroundPositionY}px`;
+        });
+
+        // Show the zoomed container when the mouse enters the main image
+        mainImage.addEventListener("mouseenter", function () {
+          zoomedContainer.style.display = "block";
+        });
+
+        // Hide the zoomed container when the mouse leaves the main image
+        mainImage.addEventListener("mouseleave", function () {
+          zoomedContainer.style.display = "none";
+        });
+
+        // Function to handle click on secondary images
+        secondaryImages.forEach(function (image) {
+          image.addEventListener("click", function () {
+            const newMainImageSrc = image.getAttribute("data-main-image");
+            const currentMainImageSrc = mainImage.src;
+
+            mainImage.src = newMainImageSrc;
+            image.setAttribute("data-main-image", currentMainImageSrc);
+            image.src = currentMainImageSrc;
+          });
+        });
+      });
+
+      const radioButtons = document.querySelectorAll('input[name="rate"]');
+
+      function handleRatingChange(event) {
+        const productId = "<%= product._id %>";
+        const selectedRating = event.target.value;
+        console.log("Selected rating:", selectedRating);
+
+        // Send the selected rating to the backend using AJAX or fetch
+        // Example using fetch:
+        fetch("/submit-rating", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: productId,
+            rating: selectedRating,
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Rating sent successfully");
+            } else {
+              console.error("Failed to send rating");
+            }
+          })
+          .catch((error) => {
+            console.error("Error sending rating:", error);
+          });
+      }
+
+      // Add event listener to each radio button
+      radioButtons.forEach((button) => {
+        button.addEventListener("change", handleRatingChange);
+      });
+    </script>
+  </body>
+</html>

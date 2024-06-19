@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../style/tiny-slider.css" rel="stylesheet" />
+    <link href="../style/style.css" rel="stylesheet" />
+    <title>WoodWorks shop</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+      }
+
+      .content-wrapper {
+        text-align: center; /* Center align the content */
+        margin: 40px;
+      }
+
+      .orders-table {
+        width: 80%; /* Set width of the table */
+        margin: 0 auto; /* Center the table horizontally */
+        border-collapse: collapse; /* Collapse border spacing */
+      }
+
+      .orders-table th,
+      .orders-table td {
+        padding: 10px; /* Add padding to cells */
+        border: 1px solid #ccc; /* Add border to cells */
+      }
+
+      .orders-table th {
+        background-color: #f2f2f2; /* Add background color to header row */
+      }
+
+      .orders-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Alternate row background color */
+      }
+
+      .orders-table tbody tr:hover {
+        background-color: #eaeaea; /* Hover effect for rows */
+      }
+
+      .product-img.disabled,
+      .order-row.disabled {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li>
+              <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="../img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="../img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="../img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="../img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <div
+      class="untree_co-section before-footer-section"
+      style="margin-top: -100px"
+    >
+      <div class="container">
+        <div class="row mb-5">
+          <div class="card-header text-center fs-4 text-dark">Your Orders</div>
+          <div class="site-blocks-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th hidden>Order ID</th>
+                  <th class="product-thumbnail">Image</th>
+                  <th class="product-name">Product</th>
+                  <th>Quantity</th>
+                  <th>Payable Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (Array.isArray(orders) && orders.length > 0) { %> <%
+                orders.forEach(order => { %>
+                <tr class="<%= order.isCancelled ? 'disabled' : '' %>">
+                  <td hidden><%= order.orderId %></td>
+                  <td hidden><%= order.productId %></td>
+                  <td>
+                    <img
+                      src="/<%= order.imageUrl %>"
+                      alt="Product Image"
+                      style="max-width: 100px"
+                      class="product-img <%= order.isCancelled ? 'disabled' : '' %>"
+                      data-orderid="<%= order.orderId %>"
+                      data-productid="<%= order.productId %>"
+                    />
+                  </td>
+                  <td><%= order.productName %></td>
+                  <td><%= order.quantity %></td>
+
+                  <td>
+                    <%= order.isCancelled ? 'Cancelled' :
+                    (Number(order.discountedPrice) * order.quantity).toFixed()
+                    %>
+                  </td>
+
+                  <td>
+                    <%= order.isCancelled ? 'Order Cancelled' : order.status %>
+                  </td>
+                  <td>
+                    <% if (!order.isCancelled) { %>
+                    <button
+                      class="cancel-order-btn btn btn-sm"
+                      data-orderid="<%= order.orderId %>"
+                      data-productid="<%= order.productId %>"
+                    >
+                      Cancel
+                    </button>
+                    <% } else { %> Cancelled <% } %>
+                  </td>
+                </tr>
+                <% }); %> <% } else { %>
+                <tr>
+                  <td colspan="7" class="text-center">No orders found.</td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- main section end -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="../img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus in
+              cum odio.
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                  <li><a href="#">Wooden Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top text-center pt-5">
+          <p class="copyright">
+            <small>&copy; 2023-2024 All Rights Reserved.</small>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <!-- End Script -->
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../script/popper.min.js"></script>
+    <script src="../script/bootstrap.min.js"></script>
+    <script src="../script/tiny-slider.js"></script>
+    <script src="../script/aos.js"></script>
+    <script src="../script/navbar.js"></script>
+    <script src="../script/counter.js"></script>
+    <script src="../script/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(document).on("click", ".cancel-order-btn", function (e) {
+          e.preventDefault();
+          var orderId = $(this).data("orderid");
+          var productId = $(this).data("productid");
+          var $button = $(this);
+
+          if (confirm("Are you sure you want to cancel this order?")) {
+            cancelOrder(orderId, productId, $button);
+          }
+        });
+
+        function cancelOrder(orderId, productId, $button) {
+          console.log(
+            "Sending AJAX request to cancel order:",
+            orderId,
+            productId
+          );
+          $.ajax({
+            type: "POST",
+            url: "/Remove_OrderProduct/" + orderId + "/" + productId,
+            success: function (response) {
+              console.log("AJAX success:", response);
+              location.reload(); // Refresh the page after update
+            },
+            error: function (xhr, status, error) {
+              console.error("AJAX error:", error);
+            },
+          });
+        }
+
+        const productImages = document.querySelectorAll(".product-img");
+        productImages.forEach((image) => {
+          if (!image.classList.contains("disabled")) {
+            image.addEventListener("click", function () {
+              const orderId = this.dataset.orderid;
+              const productId = this.dataset.productid;
+              window.location.href = `/order/details/${orderId}?productId=${productId}`;
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

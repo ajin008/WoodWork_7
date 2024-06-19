@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Untree.co" />
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../style/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="../style/tiny-slider.css" rel="stylesheet" />
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <link href="../style/style.css" rel="stylesheet" />
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Wix+Madefor+Display:wght@400..800&display=swap"
+    rel="stylesheet"
+    />
+
+    <title>WoodWorks cart</title>
+
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .form-check {
+          font-size: 17px; /* Adjust the font size as needed */
+        }
+      .mainContainer {
+        width: 400px;
+        height: 590px;
+        margin: auto; /* Center horizontally */
+        position: fixed; /* Fix the position */
+        top: 50%; /* Place it 50% from the top */
+        left: 50%; /* Place it 50% from the left */
+        transform: translate(-50%, -50%); /* Adjust for centering */
+        box-shadow: 0 0 10px #2323;
+        background: white;
+      }
+      .cardHolder {
+        height: 300px;
+        background: linear-gradient(to right, #6480ef, #7775e8, #806ce8);
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .heading {
+        height: 40px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .stepHeading {
+        height: 20px;
+        font-size: 16px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .card {
+        height: 180px;
+        width: 280px;
+        background: white;
+        margin: 0 auto;
+        border-radius: 1.2em;
+        margin-top: 25px;
+        padding: 12px 20px;
+        position: relative;
+      }
+      .infoheader {
+        height: 20px;
+        font-size: 24px; /* Increased font size */
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #95a5a6;
+        text-align: center; /* Centered text */
+        margin-top: 20px; /* Adjusted margin top */
+      }
+      .payment {
+        height: 80px;
+        position: relative;
+        top: 24px;
+        box-shadow: 0 -5px 5px -5px #2323;
+        justify-content: space-around;
+      }
+      .val {
+        height: 40px;
+        font-size: 24px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        color: #6480ef;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Start Header/Navigation -->
+    <nav
+      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top"
+      arial-label="Furni navigation bar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/home">WoodWorks<span>.</span></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li><a class="nav-link" href="/Home">home</a></li>
+            <li><a class="nav-link" href="/shop">Shop</a></li>
+            <li><a class="nav-link" href="/about">About us</a></li>
+            <li><a class="nav-link" href="/services">Services</a></li>
+            <li><a class="nav-link" href="/blog">Blog</a></li>
+            <li><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <a class="nav-link" href="/user-details/<%= userId %>"
+                ><img
+                  src="../img/user.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+              /></a>
+            </li>
+            <li>
+              <a class="nav-link" href="/wallet/<%= userId %>"
+                ><img
+                  src="../img/wallet.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/userWishlist/<%= userId %>">
+                <img
+                  src="../img/wishlist (2).svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user-cart/<%= userId %>"
+                ><img
+                  src="../img/cart-in.svg"
+                  style="width: 30px; height: 30px; fill: rgb(244, 239, 239)"
+                  alt="User cart"
+                />
+              </a>
+            </li>
+          </ul>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-white-outline">Logout</button>
+          </form>
+          <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3">
+            <!-- Success toast -->
+            <div id="successToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body text-white"></div>
+            </div>
+            <!-- Error toast -->
+            <div id="errorToast" class="toast bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body text-white"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- End Header/Navigation -->
+
+    <!-- Start Hero Section -->
+
+    <!-- End Hero Section -->
+
+    <!-- main section start -->
+    <div class="untree_co-section">
+      <div class="container">
+        <form id="orderForm" action="/updateOrder" method="POST">
+          <div class="row mb-5"></div>
+          <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+              <h2 class="h3 mb-3 text-black">Billing Details</h2>
+              <div class="p-3 p-lg-5 border bg-white">
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="FirstName" class="text-black">First Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="FirstName" name="FirstName" value="<%= user.FirstName %>" required/>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="LastName" class="text-black">Last Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="LastName" name="LastName" value="<%= user.LastName %>  " required/>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <% addresses.forEach((address, index) => { %>
+                    <div class="border p-3 mb-3 " id="add">
+                        <h3 class="h6 mb-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="selectedAddress" id="address<%= index %>" value="<%= index %>" <% if (index === 0) { %>checked<% } %>>
+                                <label class="form-check-label" for="address<%= index %>">
+                                    Address <span class="text-danger">*</span><br>
+                                    <%= address.address %>, <%= address.street %>, <%= address.landmark %>, <%= address.state %>, <%= address.postalCode %>
+                                </label>
+                            </div>
+                        </h3>
+                    </div>
+                    <% }); %>
+                    <input type="hidden" name="selectedAddressIndex" id="selectedAddressIndex" value="0">
+                </div>
+                <div class="form-group row mb-5">
+                  <div class="col-md-6">
+                    <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="c_email_address" name="c_email_address" value="<%= user.email %>"  required />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="<%= user.phone %>" required/>
+                  </div>
+                  <div class="col-md-6 mt-4">
+                    <a href="/addAddress/<%= user._id %>?sourcePage=checkoutPage&productId=<%= productId %>" class="btn btn-outline-primary">Add new address</a>
+                  </div>                                                                                                 
+                </div> 
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-5">
+                <div class="col-md-12">
+                    <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                    <div class="p-3 p-lg-5 border bg-white">
+                        <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                        <div class="input-group w-75 couponcode-wrap">
+                            <input
+                                type="text"
+                                class="form-control me-2"
+                                id="c_code"
+                                placeholder="Coupon Code"
+                                aria-label="Coupon Code"
+                                aria-describedby="button-addon2"
+                            />
+                            <div class="input-group-append">
+                                <button
+                                    class="btn btn-black btn-sm"
+                                    type="button"
+                                    id="applyCouponBtn"
+                                >
+                                    Apply
+                                </button>
+                                <button
+                                    class="btn btn-black btn-sm"
+                                    type="button"
+                                    id="removeCouponBtn"
+                                >
+                                    remove 
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="row mb-5">
+                <div class="col-md-12">
+                  <h2 class="h3 mb-3 text-black">Your Order</h2>
+                  <div class="p-3 p-lg-5 border bg-white">
+                    <table class="table site-block-order-table mb-5">
+                      <thead>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><%= productName %></td>
+                          <td><%= quantity %></td>
+                          <td>Rs<span><%= offerPrice * quantity %></span></td>
+                        </tr>
+                        <tr id="discountRow" style="display: none;">
+                          <td colspan="2" class="text-dark  font-weight-bold">
+                              <strong>Discount Amount</strong>
+                          </td>
+                          <td colspan="2" class="text-dark  font-weight-bold">
+                              <strong>Rs<span id="discountValue"></span></strong>
+                          </td>
+                        </tr>
+
+
+                        <tr>
+                          <td colspan="2" >
+                            <strong>Delivery Charge</strong>
+                          </td>
+                          <td >
+                            <strong>Rs<span id="deliveryCharge"><%= deliveryCharge %></span></strong>
+                          </td>
+                        </tr>
+                        <input type="hidden" name="deliveryCharge" id="deliveryChargeInput" value="<%= deliveryCharge %>">
+                      
+                        <tr>
+                          <td colspan="2" class="text-black font-weight-bold">
+                            <strong>Order Total</strong>
+                          </td>
+                          <td class="text-black font-weight-bold">
+                            <strong>Rs<span id="orderTotalValue"><%= orderTotal%></span></strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <input type="hidden" name="orderTotal" id="orderTotalInput"  value="<%= orderTotal %>">
+                    <input type="hidden" name="couponId" id="couponId" value="">
+                    <input type="hidden" name="discountValue" id="discountValueInput" value="0">
+                    <input type="hidden" name="discountType" id="discountType" value="0">
+                    
+                    
+
+
+                    <!-- checking -->
+                    <input
+                      type="hidden"
+                      name="productName"
+                      value="<%= productName %>"
+                    />
+                    <input
+                      type="hidden"
+                      name="quantity"
+                      value="<%= quantity %>"
+                    />
+                    
+                    <input
+                      type="hidden"
+                      name="productId"
+                      value="<%= productId %>"
+                    />
+
+                    <!-- checking -->
+
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="oderType"
+                            id="cashOnDelivery"
+                            value="cashOnDelivery"
+                          />
+                          <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
+                        </div>
+                      </h3>
+                    </div>
+
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="oderType"
+                            id="wallet" 
+                            value="wallet"
+                            
+                          />
+                          <label class="form-check-label" for="wallet">Wallet</label>
+                        </div>
+                      </h3>
+                    </div>
+
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="oderType"
+                            id="Online Payment"
+                            value="Online Payment"
+                          />
+                          <label class="form-check-label" for="razorpay">Online Payment</label>
+                      </h3>
+                    </div>
+
+                    
+
+                    <% if (messages.error) { %>
+                      <div
+                        class="alert alert-danger text-center"
+                        role="alert"
+                        style="background-color: #dc3545; color: #ffffff"
+                      >
+                        <%= messages.error %>
+                      </div>
+                      <% } %>
+
+                    <div class="form-group">
+                      <button
+                        class="btn btn-black btn-lg py-3 btn-block"
+                        type="submit"
+                      >
+                        Place Order
+                      </button>
+                      
+              
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- </form> -->
+      </div>
+    </div>
+
+
+
+    <div class="offcanvas" tabindex="-1" id="walletOffcanvas">
+      <div class="mainContainer ">
+        <div class="cardHolder">
+          <div class="header">
+            <div class="heading center">Wallet</div>
+            <div class="stepHeading center">currentBalance</div>
+            <div class="card">
+              <div class="middle part"></div>
+              <div class="bottom part">
+                <div class="expDate vcente text-center">
+                  <div class="infoheader fs-1" id="walletBalance"><%=walletBalance.toFixed()%></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="options vcenter"></div>
+        <div class="payment vcenter">
+          <div class="amount">
+            <div class="infoheader vcenter">Total Amount</div>
+            <div class="infocontent val vcenter center" id="offcanvasOrderTotal" ><%=orderTotal%></div>
+          </div>
+          <div
+            id="payNowBtn"
+            class="btn center btn-sm"
+            style="
+              background-color: #6480ef;
+              border: 2px solid #6480ef;
+              color: white;
+              width: 140px;
+              position: relative;
+              left: 130px;
+            "
+            onclick="placeOrder()"
+          >
+            Pay Now
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main section end -->
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+      <div class="container relative">
+        <div class="sofa-img">
+          <img src="../img/sofa.png" alt="Image" class="img-fluid" />
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="subscription-form">
+              <h3 class="d-flex align-items-center">
+                <span class="me-1"
+                  ><img
+                    src="../img/envelope-outline.svg"
+                    alt="Image"
+                    class="img-fluid" /></span
+                ><span>Subscribe to Newsletter</span>
+              </h3>
+
+              <form action="#" class="row g-3">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div class="mb-4 footer-logo-wrap">
+              <a href="#" class="footer-logo">WoodWorks<span>.</span></a>
+            </div>
+            <p class="mb-4">
+              Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+              quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+              vulputate velit imperdiet dolor tempor tristique. Pellentesque
+              habitant
+            </p>
+
+            <ul class="list-unstyled custom-social">
+              <li>
+                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="#"><span class="fa fa-brands fa-linkedin"></span></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row links-wrap">
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Jobs</a></li>
+                  <li><a href="#">Our team</a></li>
+                  <li><a href="#">Leadership</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <ul class="list-unstyled">
+                  <li><a href="#">Nordic Chair</a></li>
+                  <li><a href="#">Kruzo Aero</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-top copyright">
+          <div class="row pt-4">
+            <div class="col-lg-6">
+              <p class="mb-2 text-center text-lg-start">
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                . All Rights Reserved. &mdash; Designed with love by
+                <a href="https://untree.co">Untree.co</a> Distributed By
+                <a hreff="https://themewagon.com">ThemeWagon</a>
+                <!-- License information: https://untree.co/license/ -->
+              </p>
+            </div>
+
+            <div class="col-lg-6 text-center text-lg-end">
+              <ul class="list-unstyled d-inline-flex ms-auto">
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const radioButtons = document.querySelectorAll('input[name="selectedAddress"]');
+        const selectedAddressIndexInput = document.getElementById('selectedAddressIndex');
+
+         // Add event listener to each radio button
+        radioButtons.forEach(function(radioButton) {
+        radioButton.addEventListener('change', function() {
+        // Update the value of the hidden input field to the index of the selected radio button
+        selectedAddressIndexInput.value = this.value;
+          });
+         });
+       });
+
+       $(document).ready(function() {
+  var originalOrderTotal = $("#orderTotalValue").text().trim();
+
+  $("#applyCouponBtn").click(function() {
+    var couponCode = $("#c_code").val().trim();
+    if (couponCode === "") {
+      alert("Please enter a coupon code.");
+      return; 
+    }
+
+    if ($(this).prop('disabled')) {
+      showErrorToast("You have already applied a coupon code.");
+      return; 
+    }
+
+    var couponCode = $("#c_code").val();
+    var orderTotal = $("#orderTotalValue").text().trim();
+
+    $(this).prop('disabled', true);
+
+    $.ajax({
+      type: "POST",
+      url: "/applyCoupon_1",
+      data: { couponCode: couponCode, orderTotal: orderTotal, couponId: $("#couponId").val() },
+      success: function(response) {
+        console.log("Success response:", response);
+        if (response.hasOwnProperty('totalPrice')) {
+          var totalPrice = parseFloat(response.totalPrice);
+          totalPrice = isNaN(totalPrice) ? 0 : totalPrice.toFixed(2);
+          $("#orderTotalValue").text(totalPrice);
+          $("#orderTotalInput").val(totalPrice);
+          $("#offcanvasOrderTotal").text(totalPrice);
+
+          if (response.hasOwnProperty('discountAmount')) {
+            var discountAmount = parseFloat(response.discountAmount);
+            discountAmount = isNaN(discountAmount) ? 0 : discountAmount.toFixed(2);
+            $("#discountValue").text(discountAmount);
+            $("#discountValueInput").val(discountAmount); // Update discountValueInput
+            $("#discountRow").show();
+          }
+
+          if (response.hasOwnProperty('couponId')) {
+            var couponId = response.couponId;
+            $("#couponId").val(couponId); // Set couponId value into the hidden input field
+          }
+
+          if (response.hasOwnProperty('discountType')) {
+            var discountType = response.discountType;
+            $("#discountType").val(discountType); // Set discountType value into the hidden input field
+          }
+
+          showSuccessToast("Coupon applied successfully!");
+        } else if (response.error) {
+          showErrorToast(response.error);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error("Error:", error);
+        showErrorToast("Coupon has already been redeemed by this user OR Coupon not found");
+      }
+    });
+  });
+
+  $("#removeCouponBtn").click(function() {
+    $("#c_code").val('');
+    $("#orderTotalValue").text(originalOrderTotal);
+    $("#orderTotalInput").val(originalOrderTotal);
+    $("#discountRow").hide();
+    $("#discountValueInput").val(0);
+    $("#applyCouponBtn").prop('disabled', false); 
+    $("#discountType").val('');
+  });
+});
+
+
+  // Function to show success toast
+  function showSuccessToast(message) {
+    var toastEl = document.getElementById('successToast');
+    var toast = new bootstrap.Toast(toastEl);
+    toastEl.querySelector('.toast-body').textContent = message;
+    toast.show();
+  }
+
+  // Function to show error toast
+  function showErrorToast(message) {
+    var toastEl = document.getElementById('errorToast');
+    var toast = new bootstrap.Toast(toastEl);
+    toastEl.querySelector('.toast-body').textContent = message;
+    toast.show();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    function handleSubmit(event) {
+  event.preventDefault(); 
+
+  const orderType = document.querySelector('input[name="oderType"]:checked').value;
+  const orderForm = document.getElementById('orderForm');
+
+  if (orderType === 'cashOnDelivery') {
+    const orderTotal = parseFloat(document.getElementById('orderTotalInput').value);
+    if (orderTotal > 1000) {
+      showErrorToast('Cash on Delivery is not available for orders above Rs 1000. Please select another payment method.');
+      return;
+    } else {
+      orderForm.action = '/updateOrder'; 
+      orderForm.submit(); 
+    }
+  } else if (orderType === 'wallet') {
+    const walletOffcanvas = new bootstrap.Offcanvas(document.getElementById('walletOffcanvas'));
+    walletOffcanvas.show();
+    return;
+  } else if (orderType === 'Online Payment') {
+    const orderTotal = parseFloat(document.getElementById('orderTotalInput').value);
+    fetch('/createRazorpayOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ orderTotal: orderTotal }), // Ensure the correct field name here
+    })
+    .then(response => response.json())
+    .then(data => {
+      const orderId = data.orderId;
+      const options = {
+        key: 'rzp_test_PFqhrThyTWqHJx',
+        amount: orderTotal * 100, // Convert to paise
+        currency: 'INR',
+        name: 'woodworks',
+        description: 'Payment for your order',
+        order_id: orderId,
+        handler: function(response) {
+          console.log('Razorpay payment successful:', response);
+          orderForm.submit();
+        },
+        prefill: {
+          name: 'Customer Name',
+          email: 'customer@example.com',
+          contact: '9876543210',
+        },
+        theme: {
+          color: '#3399cc',
+        },
+        modal: {
+          ondismiss: function() {
+            console.log('Payment popup closed');
+            showErrorToast('Payment was not completed. Please try again.');
+                setTimeout(function() {
+                  window.location.href = '/checkout_1';
+                }, 1000); 
+          }
+        },
+        notes: {
+          order_id: orderId,
+        }
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
+    })
+    .catch(error => {
+      console.error('Error creating Razorpay order:', error);
+      showErrorToast('Payment failed. Please try again later.');
+    });
+  }
+}
+
+  document.getElementById('orderForm').addEventListener('submit', handleSubmit);
+
+  document.getElementById('payNowBtn').addEventListener('click', function(event) {
+    const orderForm = document.getElementById('orderForm');
+    const offcanvasOrderTotal = parseFloat(document.getElementById('offcanvasOrderTotal').textContent);
+    const walletBalance = parseFloat(document.getElementById('walletBalance').textContent);
+
+    const difference = offcanvasOrderTotal - walletBalance;
+    if (walletBalance >= offcanvasOrderTotal) {
+      orderForm.action = '/updateOrder';
+      orderForm.submit();
+    } else {
+      event.preventDefault();
+      alert(`Insufficient balance in your wallet. Please add ${difference} to your wallet.`);
+    }
+  });
+});
+    function showErrorToast(message) {
+      const toastEl = document.getElementById('errorToast');
+      const toast = new bootstrap.Toast(toastEl);
+      toastEl.querySelector('.toast-body').textContent = message;
+      toast.show();
+    }
+
+    function showSuccessToast(message) {
+      const toastEl = document.getElementById('successToast');
+      const toast = new bootstrap.Toast(toastEl);
+      toastEl.querySelector('.toast-body').textContent = message;
+      toast.show();
+    }
+
+    function allowOnlyNumbers(event) {
+    const charCode = event.which ? event.which : event.keyCode;
+
+    // Allow backspace, delete, left arrow, right arrow, tab, and enter
+    if (
+      charCode === 8 || // backspace
+      charCode === 46 || // delete
+      charCode === 37 || // left arrow
+      charCode === 39 || // right arrow
+      charCode === 9 ||  // tab
+      charCode === 13    // enter
+    ) {
+      return;
+    }
+
+    // Prevent default behavior if not a number
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+
+  // Add event listener to the phone input field
+  document.getElementById('phone').addEventListener('keydown', allowOnlyNumbers);
+
+  
+    </script>
+  </body>
+</html>
